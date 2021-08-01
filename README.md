@@ -19,6 +19,7 @@ https://developers.viber.com/docs/api/nodejs-bot-api/
 
 Create a file **.env** in **main** directory and add this below text
 ```
-PORT=3000
 VIBER_ACCESS_TOKEN=Your Viber Access Token Add HERE
+MONGODB_URI=Your Mongo DB Connection String Add Here
+PORT=3000
 ```
