@@ -8,6 +8,7 @@ module.exports = (settings) => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
+    useNewUrlParser: true
   });
   let db = mongoose.connection;
 
