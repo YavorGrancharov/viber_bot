@@ -1,8 +1,8 @@
 const ethApi = require('../api/ethApi');
 
 module.exports = {
-  savePrice: () => {
-    return ethApi.savePriceToDb();
+  savePrice: async () => {
+    return await ethApi.savePriceToDb();
   },
   latestPriceFromDb: () => {
     return ethApi.getLatestPriceFromDb();

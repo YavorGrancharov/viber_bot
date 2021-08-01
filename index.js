@@ -2,8 +2,6 @@ require('dotenv').config();
 const ViberBot = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
 
-const User = require('./src/models/UserModel');
-
 const TextMessage = require('viber-bot').Message.Text;
 const userController = require('./src/controllers/consolidator').user;
 const msgController = require('./src/controllers/consolidator').message;
@@ -12,8 +10,6 @@ const btcController = require('./src/controllers/consolidator').bitcoin;
 const helper = require('./src/helpers/helper');
 
 const cron = require('node-cron');
-
-let broadcastList = [];
 
 if (!process.env.VIBER_ACCESS_TOKEN) {
   console.log('Could not find bot account token key.');
@@ -28,14 +24,6 @@ const bot = new ViberBot({
   avatar:
     'https://cdn.pixabay.com/photo/2019/06/23/19/15/bitcoin-4294492_960_720.png',
 });
-
-async function sendDailyPriceToSubscribers() {
-  let currentEthPrice = await helper.getTicker('ETHUSD');
-  currentEthPrice = Number(currentEthPrice.XETHZUSD.a[0]);
-  let currentBtcPrice = await helper.getTicker('XBTUSD');
-  currentBtcPrice = Number(currentBtcPrice.XXBTZUSD.a[0]);
-  let subscribers = await User.find({}).lean();
-}
 
 bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
   if (!(message instanceof TextMessage)) {
@@ -74,12 +62,16 @@ bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
   }
 });
 
-bot.on(BotEvents.MESSAGE_SENT, (message, response) => {});
-
 // Save latest ETH, BTC prices to DB on every 24h
-cron.schedule('* */24 * * *', () => {
-  ethController.savePrice();
+cron.schedule('30 17 * * *', async () => {
   btcController.savePrice();
+  ethController.savePrice();
+  
+  msgController.sendSubscribersDailyMsg(
+    userController,
+    btcController,
+    ethController
+  );
 });
 
 // Server

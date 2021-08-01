@@ -19,11 +19,12 @@ async function saveUserToDb(userProfile) {
   }
 }
 
-async function getAllUsers() {
-  return await User.find({}).lean();
+async function getAllUsersFromDb() {
+  const users = await User.find({}).lean();
+  return users;
 }
 
 module.exports = {
   saveUserToDb,
-  getAllUsers,
+  getAllUsersFromDb,
 };

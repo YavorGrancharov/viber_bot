@@ -5,4 +5,8 @@ module.exports = {
     const user = response.userProfile;
     usersApi.saveUserToDb(user);
   },
+  getAllUsers: async () => {
+    const users = await usersApi.getAllUsersFromDb();
+    return users;
+  },
 };

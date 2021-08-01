@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const unirest = require('unirest');
 
 const TextMessage = require('viber-bot').Message.Text;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
@@ -54,5 +55,37 @@ module.exports = {
         console.log(error);
       }
     });
+  },
+  sendSubscribersDailyMsg: async (userController, btcController, ethController) => {
+    let broadcastList = [];
+    const users = await userController.getAllUsers();
+    users.forEach((user) => {
+      broadcastList.push(user.viberId);
+    });
+
+    const currentBtcPrice = await btcController.currentPrice();
+    const currentEthPrice = await ethController.currentPrice();
+
+    const data = {
+      auth_token: process.env.VIBER_ACCESS_TOKEN,
+      chat_hostname: 'SN-CHAT-24_',
+      broadcast_list: broadcastList,
+      min_api_version: 7,
+      type: 'text',
+      text:
+        `Current BTC price: $${currentBtcPrice}\n` +
+        `Current ETH price: $${currentEthPrice}`,
+    };
+
+    unirest
+      .post('https://chatapi.viber.com/pa/broadcast_message')
+      .headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      })
+      .send(data)
+      .then((response) => {
+        console.log(response.body);
+      });
   },
 };
