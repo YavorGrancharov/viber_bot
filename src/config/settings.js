@@ -5,7 +5,7 @@ let rootPath = path.normalize(path.join(__dirname, '/../../'));
 module.exports = {
   development: {
     rootPath: rootPath,
-    db: process.env.MONGODB_URI || "mongodb+srv://yavor:$agittarius791202@ascrmi-kzgsb.mongodb.net/vbr_chatbot?retryWrites=true&w=majority",
+    db: "mongodb+srv://yavor:$agittarius791202@ascrmi-kzgsb.mongodb.net/vbr_chatbot?retryWrites=true&w=majority",
     port: process.env.PORT || 3000,
   },
   staging: {},
