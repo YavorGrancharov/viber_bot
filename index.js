@@ -90,6 +90,10 @@ const settings = require('./src/config/settings')[env];
 
 require('./src/config/db')(settings);
 
+app.get('/', function (req, res) {
+  res.send(`Hello, I am ${bot.name}.`);
+});
+
 app.use('/viber/webhook', bot.middleware());
 app.listen(settings.port, async () => {
   try {
