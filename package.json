@@ -1,0 +1,22 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "ngrok": "ngrok http 3000"
+  },
+  "author": "YG",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.0.1",
+    "mongoose": "^5.13.4",
+    "node-cron": "^3.0.0",
+    "unirest": "^0.6.0",
+    "viber-bot": "^1.0.16"
+  }
+}

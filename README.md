@@ -1,1 +1,24 @@
-# viber_bot
+# viber-bot
+
+### Create Viber Public Account
+https://partners.viber.com/account/create-bot-account
+
+### Developer Documentation
+> https://developers.viber.com/docs/
+
+> Node.JS Bot API =>
+https://developers.viber.com/docs/api/nodejs-bot-api/
+
+#### Install ngrok to get the public url with ssl
+
+> https://www.npmjs.com/package/ngrok
+
+> https://ngrok.com/docs
+
+#### For Node.JS,
+
+Create a file **.env** in **main** directory and add this below text
+```
+PORT=5000
+VIBER_ACCESS_TOKEN=Your Viber Access Token Add HERE
+```

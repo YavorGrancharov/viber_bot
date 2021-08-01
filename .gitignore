@@ -1,0 +1,12 @@
+# API keys and secrets
+.env
+
+### VisualStudioCode ###
+.vscode
+.git
+
+# dependencies
+/node_modules
+
+# production
+/build

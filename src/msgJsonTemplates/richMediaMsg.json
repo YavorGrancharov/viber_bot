@@ -1,0 +1,14 @@
+{
+  "BgColor": "#FFFFFF",
+  "Buttons": [
+    {
+      "ActionBody": "http://www.website.com/go_here",
+      "ActionType": "open-url",
+      "BgColor": "#F1F2F2",
+      "TextOpacity": 100,
+      "TextSize": "large",
+      "BgMedia": "https://www.cryptocompare.com/media/36569382/ccthumbimage.png",
+      "TextVAlign": "bottom"
+    }
+  ]
+}
