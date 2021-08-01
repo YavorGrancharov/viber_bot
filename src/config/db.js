@@ -7,9 +7,10 @@ module.exports = (settings) => {
   mongoose.connect(settings.db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: false,
     useFindAndModify: false,
-    useNewUrlParser: true
   });
+  console.log(typeof settings.db)
   let db = mongoose.connection;
 
   db.once('open', (err) => {
