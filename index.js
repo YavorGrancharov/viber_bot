@@ -84,18 +84,19 @@ cron.schedule('* */24 * * *', () => {
 
 // Server
 const express = require('express');
-const app = express();
 const env = process.env.NODE_ENV || 'development';
 const settings = require('./src/config/settings')[env];
 
-require('./src/config/db')(settings);
+const app = express();
+
+require('./src/config/database')(settings);
 
 app.get('/', function (req, res) {
   res.send(`Hello, I am ${bot.name}.`);
 });
 
 app.use('/viber/webhook', bot.middleware());
-app.listen(settings.port, async () => {
+app.listen(settings.port, () => {
   try {
     console.log(`Application running on port: ${settings.port}`);
     bot.setWebhook(`https://vbr-bot.herokuapp.com/viber/webhook`);

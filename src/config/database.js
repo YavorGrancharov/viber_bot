@@ -10,7 +10,7 @@ module.exports = (settings) => {
     useCreateIndex: false,
     useFindAndModify: false,
   });
-  console.log(typeof settings.db)
+
   let db = mongoose.connection;
 
   db.once('open', (err) => {
