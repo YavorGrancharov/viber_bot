@@ -31,7 +31,7 @@ module.exports = {
   },
   sendRichMediaMsg: async (response, crypto, price, diff) => {
     const filePath = path.normalize(
-      path.join(__dirname, '../msgJsonTemplates//richMediaMsg.json')
+      path.join(__dirname, '../msgJsonTemplates/richMediaMsg.json')
     );
     fs.readFile(filePath, 'utf8', (err, msg) => {
       if (err) {
