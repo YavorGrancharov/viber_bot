@@ -15,26 +15,20 @@ async function getPriceFromDb() {
   return price;
 }
 
-async function savePriceToDb() {
-  let currentPrice = await helper.getTicker('XBTUSD');
-  currentPrice = Number(currentPrice.XXBTZUSD.a[0]);
-  let latestPriceFromDb = getPriceFromDb();
-  priceComparator(currentPrice, latestPriceFromDb, BtcModel);
-}
-
-async function getLatestPriceFromDb() {
-  let latestPriceFromDb = getPriceFromDb();
-  return latestPriceFromDb;
-}
-
 async function getCurrentPrice() {
   let currentPrice = await helper.getTicker('XBTUSD');
   currentPrice = Number(currentPrice.XXBTZUSD.a[0]);
   return currentPrice;
 }
 
+async function savePriceToDb() {
+  let currentPrice = getCurrentPrice();
+  let latestPriceFromDb = getPriceFromDb();
+  priceComparator(currentPrice, latestPriceFromDb, BtcModel);
+}
+
 module.exports = {
   savePriceToDb,
-  getLatestPriceFromDb,
+  getPriceFromDb,
   getCurrentPrice,
 };

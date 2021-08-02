@@ -5,7 +5,7 @@ module.exports = {
     return await ethApi.savePriceToDb();
   },
   latestPriceFromDb: () => {
-    return ethApi.getLatestPriceFromDb();
+    return ethApi.getPriceFromDb();
   },
   currentPrice: () => {
     return ethApi.getCurrentPrice();

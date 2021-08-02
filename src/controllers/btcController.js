@@ -5,7 +5,7 @@ module.exports = {
     return await btcApi.savePriceToDb();
   },
   latestPriceFromDb: () => {
-    return btcApi.getLatestPriceFromDb();
+    return btcApi.getPriceFromDb();
   },
   currentPrice: () => {
     return btcApi.getCurrentPrice();
