@@ -22,8 +22,8 @@ async function getCurrentPrice() {
 }
 
 async function savePriceToDb() {
-  let currentPrice = getCurrentPrice();
-  let latestPriceFromDb = getPriceFromDb();
+  let currentPrice = await getCurrentPrice();
+  let latestPriceFromDb = await getPriceFromDb();
   priceComparator(currentPrice, latestPriceFromDb, BtcModel);
 }
 
