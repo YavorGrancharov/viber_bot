@@ -63,7 +63,7 @@ bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
 });
 
 // Save latest ETH, BTC prices to DB on every 24h
-cron.schedule('* * * * *', async () => {
+cron.schedule('0 9 * * *', async () => {
   btcController.savePrice();
   ethController.savePrice();
 
