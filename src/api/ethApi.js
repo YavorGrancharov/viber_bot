@@ -1,9 +1,9 @@
 const EthModel = require('../models/EthModel');
 const helper = require('../helpers/helper');
 
-async function priceComparator(currentPrice, oldPrice, model) {
+async function saveLatestPrice(currentPrice, oldPrice) {
   if (currentPrice !== oldPrice) {
-    await model.create({
+    return EthModel.create({
       price: currentPrice,
     });
   }
@@ -22,9 +22,29 @@ async function getCurrentPrice() {
 }
 
 async function savePriceToDb() {
-  let currentPrice = await getCurrentPrice();
-  let latestPriceFromDb = await getPriceFromDb();
-  priceComparator(currentPrice, latestPriceFromDb, EthModel);
+  EthModel.find({})
+    .limit(1)
+    .sort({ $natural: -1 })
+    .exec(async (err, data) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      const currentPrice = await getCurrentPrice();
+      if (data.length !== 0) {
+        const price = data[0].price;
+        const priceId = data[0]._id;
+        saveLatestPrice(currentPrice, price);
+        deletePriceFromDb(priceId);
+      } else {
+        saveLatestPrice(currentPrice, null);
+      }
+    });
+}
+
+async function deletePriceFromDb(_id) {
+  return EthModel.findByIdAndDelete(_id);
 }
 
 module.exports = {

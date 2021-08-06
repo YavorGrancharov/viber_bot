@@ -1,8 +1,8 @@
 require('dotenv').config();
 const ViberBot = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
-
 const TextMessage = require('viber-bot').Message.Text;
+
 const userController = require('./src/controllers/consolidator').user;
 const msgController = require('./src/controllers/consolidator').message;
 const ethController = require('./src/controllers/consolidator').ethereum;
@@ -39,7 +39,7 @@ bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
     } else {
       msgController.sendTextMsg(
         response,
-        `Pleace type \'Hi\' to see BTC and ETH buttons.`
+        `Please type \'Hi\' to see BTC and ETH buttons.`
       );
     }
 
@@ -63,10 +63,11 @@ bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
 });
 
 // Save latest ETH, BTC prices to DB on every 24h
-cron.schedule('30 17 * * *', async () => {
+cron.schedule('* * * * *', async () => {
   btcController.savePrice();
   ethController.savePrice();
-  
+
+  // Send daily price to subscribers
   msgController.sendSubscribersDailyMsg(
     userController,
     btcController,
