@@ -9,11 +9,7 @@ https://partners.viber.com/account/create-bot-account
 > Node.JS Bot API =>
 https://developers.viber.com/docs/api/nodejs-bot-api/
 
-#### Install ngrok to get the public url with ssl
-
-> https://www.npmjs.com/package/ngrok
-
-> https://ngrok.com/docs
+#### Install all dependencies with **npm install**
 
 #### For Node.JS,
 
