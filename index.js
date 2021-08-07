@@ -1,5 +1,4 @@
 require('dotenv').config();
-const ViberBot = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
 const TextMessage = require('viber-bot').Message.Text;
 
@@ -9,21 +8,13 @@ const ethController = require('./src/controllers/consolidator').ethereum;
 const btcController = require('./src/controllers/consolidator').bitcoin;
 const helper = require('./src/helpers/helper');
 
-const cron = require('node-cron');
-
 if (!process.env.VIBER_ACCESS_TOKEN) {
   console.log('Could not find bot account token key.');
   return;
 }
 
-const ngrok = require('./get_public_url');
-
-const bot = new ViberBot({
-  authToken: process.env.VIBER_ACCESS_TOKEN,
-  name: 'Finance Bot',
-  avatar:
-    'https://cdn.pixabay.com/photo/2019/06/23/19/15/bitcoin-4294492_960_720.png',
-});
+const ngrok = require('./publicUrl');
+const bot = require('./src/config/bot');
 
 bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
   if (!(message instanceof TextMessage)) {
@@ -62,34 +53,22 @@ bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
   }
 });
 
-// Save latest ETH, BTC prices to DB on every 24h
-cron.schedule('0 9 * * *', async () => {
-  btcController.savePrice();
-  ethController.savePrice();
-
-  // Send daily price to subscribers
-  msgController.sendSubscribersDailyMsg(
-    userController,
-    btcController,
-    ethController
-  );
-});
-
 // Server
 const express = require('express');
+const router = express.Router();
 const env = process.env.NODE_ENV || 'development';
 const settings = require('./src/config/settings')[env];
 
 const app = express();
 
 require('./src/config/database')(settings);
+require('./src/config/express')(app);
+require('./src/config/router')(router);
+require('./scheduler')();
 
-app.get('/', function (req, res) {
-  res.send(`Hello, I am ${bot.name}.`);
-});
-
+app.use('/', router);
 app.use('/viber/webhook', bot.middleware());
-app.listen(settings.port, () => {
+app.listen(settings.port, async () => {
   try {
     console.log(`Application running on port: ${settings.port}`);
     bot.setWebhook(`https://vbr-bot.herokuapp.com/viber/webhook`);

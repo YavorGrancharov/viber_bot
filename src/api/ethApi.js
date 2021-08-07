@@ -36,14 +36,14 @@ async function savePriceToDb() {
         const price = data[0].price;
         const priceId = data[0]._id;
         saveLatestPrice(currentPrice, price);
-        deletePriceFromDb(priceId);
+        deletePrevPrice(priceId);
       } else {
         saveLatestPrice(currentPrice, null);
       }
     });
 }
 
-async function deletePriceFromDb(_id) {
+async function deletePrevPrice(_id) {
   return EthModel.findByIdAndDelete(_id);
 }
 

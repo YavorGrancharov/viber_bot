@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 module.exports = (settings) => {
-  mongoose.set('useCreateIndex', true);
   mongoose.connect(settings.db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

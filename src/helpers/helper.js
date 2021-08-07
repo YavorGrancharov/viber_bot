@@ -2,12 +2,16 @@ const unirest = require('unirest');
 
 module.exports = {
   getTicker: async (pairKey) => {
-    const req = await unirest(
-      'GET',
-      `https://api.kraken.com/0/public/Ticker?pair=${pairKey}`
-    );
+    try {
+      const req = await unirest(
+        'GET',
+        `https://api.kraken.com/0/public/Ticker?pair=${pairKey}`
+      );
 
-    return req.body.result;
+      return req.body.result;
+    } catch (error) {
+      console.log(error);
+    }
   },
   calcPriceDiff: (currentPrice, oldPriceFromDb) => {
     let diff = (((currentPrice - oldPriceFromDb) / currentPrice) * 100).toFixed(

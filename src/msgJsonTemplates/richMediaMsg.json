@@ -2,7 +2,7 @@
   "BgColor": "#FFFFFF",
   "Buttons": [
     {
-      "ActionBody": "http://www.website.com/go_here",
+      "ActionBody": "https://www.cryptocompare.com/",
       "ActionType": "open-url",
       "BgColor": "#F1F2F2",
       "TextOpacity": 100,
