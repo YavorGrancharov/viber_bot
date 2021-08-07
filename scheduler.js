@@ -5,7 +5,7 @@ const btcController = require('./src/controllers/consolidator').bitcoin;
 const cron = require('node-cron');
 
 module.exports = () => {
-  cron.schedule('30 19 * * *', async () => {
+  cron.schedule('0 9 * * *', async () => {
     // Save latest ETH, BTC prices to DB on every 24h
     btcController.savePrice();
     ethController.savePrice();
