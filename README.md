@@ -9,7 +9,11 @@ https://partners.viber.com/account/create-bot-account
 > Node.JS Bot API =>
 https://developers.viber.com/docs/api/nodejs-bot-api/
 
-#### Install all dependencies with **npm install**
+#### Install all dependencies with 
+
+```
+npm install
+```
 
 #### For Node.JS,
 
