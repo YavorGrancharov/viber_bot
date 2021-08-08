@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const unirest = require('unirest');
+
 const TextMessage = require('viber-bot').Message.Text;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;

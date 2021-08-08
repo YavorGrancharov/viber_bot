@@ -7,9 +7,10 @@ if (!process.env.VIBER_ACCESS_TOKEN) {
 
 const ngrok = require('./publicUrl');
 
-// Initialize viber bot
-const bot = require('./src/config/bot');
-require('./src/controllers/botController')(bot);
+// Initialize bot
+const bot = require('./src/config/bot')();
+// Use bot logic
+require('./src/controllers/botController').onMessageReceived(bot);
 
 // Create server
 const express = require('express');

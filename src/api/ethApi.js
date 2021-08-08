@@ -21,6 +21,10 @@ async function getCurrentPrice() {
   return currentPrice;
 }
 
+async function deletePrevPrice(_id) {
+  return EthModel.findByIdAndDelete(_id);
+}
+
 async function savePriceToDb() {
   EthModel.find({})
     .limit(1)
@@ -41,10 +45,6 @@ async function savePriceToDb() {
         saveLatestPrice(currentPrice, null);
       }
     });
-}
-
-async function deletePrevPrice(_id) {
-  return EthModel.findByIdAndDelete(_id);
 }
 
 module.exports = {
