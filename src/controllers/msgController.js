@@ -92,29 +92,39 @@ const _this = (module.exports = {
       });
   },
   botResponseMsg: async (response, message) => {
-    let dbPrice = 0, diff = 0;
-    switch (message.text) {
-      case 'Hi':
-        _this.sendKeyboardMsg(response);
-        break;
-      case 'BTC':
-        const btcPriceOnDemand = await btcController.currentPrice();
-        dbPrice = await btcController.latestPriceFromDb();
-        diff = helper.calcPriceDiff(btcPriceOnDemand, dbPrice);
-        _this.sendRichMediaMsg(response, 'BTC', btcPriceOnDemand, diff);
-        break;
-      case 'ETH':
-        const ethPriceOnDemand = await ethController.currentPrice();
-        dbPrice = await ethController.latestPriceFromDb();
-        diff = helper.calcPriceDiff(ethPriceOnDemand, dbPrice);
-        _this.sendRichMediaMsg(response, 'ETH', ethPriceOnDemand, diff);
-        break;
-      default:
-        _this.sendTextMsg(
-          response,
-          `Please type \'Hi\' to see BTC and ETH buttons.`
-        );
-        break;
+    if (!(message instanceof TextMessage)) {
+      _this.sendTextMsg(
+        response,
+        `Sorry. I can only understand text messages.`
+      );
+    }
+
+    if (message instanceof TextMessage) {
+      let dbPrice = 0,
+        diff = 0;
+      switch (message.text) {
+        case 'Hi':
+          _this.sendKeyboardMsg(response);
+          break;
+        case 'BTC':
+          const btcPriceOnDemand = await btcController.currentPrice();
+          dbPrice = await btcController.latestPriceFromDb();
+          diff = helper.calcPriceDiff(btcPriceOnDemand, dbPrice);
+          _this.sendRichMediaMsg(response, 'BTC', btcPriceOnDemand, diff);
+          break;
+        case 'ETH':
+          const ethPriceOnDemand = await ethController.currentPrice();
+          dbPrice = await ethController.latestPriceFromDb();
+          diff = helper.calcPriceDiff(ethPriceOnDemand, dbPrice);
+          _this.sendRichMediaMsg(response, 'ETH', ethPriceOnDemand, diff);
+          break;
+        default:
+          _this.sendTextMsg(
+            response,
+            `Please type \'Hi\' to see BTC and ETH buttons.`
+          );
+          break;
+      }
     }
   },
 });
