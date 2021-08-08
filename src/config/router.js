@@ -1,4 +1,4 @@
-const bot = require('../config/bot');
+const bot = require('../config/bot')();
 
 module.exports = (router) => {
   router.get('/', function (req, res) {
