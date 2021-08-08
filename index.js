@@ -1,12 +1,4 @@
 require('dotenv').config();
-const BotEvents = require('viber-bot').Events;
-const TextMessage = require('viber-bot').Message.Text;
-
-const userController = require('./src/controllers/consolidator').user;
-const msgController = require('./src/controllers/consolidator').message;
-const ethController = require('./src/controllers/consolidator').ethereum;
-const btcController = require('./src/controllers/consolidator').bitcoin;
-const helper = require('./src/helpers/helper');
 
 if (!process.env.VIBER_ACCESS_TOKEN) {
   console.log('Could not find bot account token key.');
@@ -14,46 +6,12 @@ if (!process.env.VIBER_ACCESS_TOKEN) {
 }
 
 const ngrok = require('./publicUrl');
+
+// Initialize viber bot
 const bot = require('./src/config/bot');
+require('./src/controllers/botController')(bot);
 
-bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
-  if (!(message instanceof TextMessage)) {
-    msgController.sendTextMsg(
-      response,
-      `Sorry. I can only understand text messages.`
-    );
-  }
-
-  if (message instanceof TextMessage) {
-    if (message.text === 'Hi') {
-      msgController.sendKeyboardMsg(response);
-    } else {
-      msgController.sendTextMsg(
-        response,
-        `Please type \'Hi\' to see BTC and ETH buttons.`
-      );
-    }
-
-    if (message.text === 'BTC') {
-      const btcPriceOnDemand = await btcController.currentPrice();
-      const dbPrice = await btcController.latestPriceFromDb();
-      const diff = helper.calcPriceDiff(btcPriceOnDemand, dbPrice);
-      msgController.sendRichMediaMsg(response, 'BTC', btcPriceOnDemand, diff);
-    }
-
-    if (message.text === 'ETH') {
-      const ethPriceOnDemand = await ethController.currentPrice();
-      const dbPrice = await ethController.latestPriceFromDb();
-      const diff = helper.calcPriceDiff(ethPriceOnDemand, dbPrice);
-      msgController.sendRichMediaMsg(response, 'ETH', ethPriceOnDemand, diff);
-    }
-
-    userController.saveUser(response);
-    msgController.sendTextMsg(response);
-  }
-});
-
-// Server
+// Create server
 const express = require('express');
 const router = express.Router();
 const env = process.env.NODE_ENV || 'development';

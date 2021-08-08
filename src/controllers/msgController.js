@@ -1,13 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 const unirest = require('unirest');
-
 const TextMessage = require('viber-bot').Message.Text;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
+
+const ethController = require('./ethController');
+const btcController = require('./btcController');
+
 const helper = require('../helpers/helper');
 
-module.exports = {
+const _this = (module.exports = {
   sendTextMsg: (response, message) => {
     response.send(new TextMessage(message));
   },
@@ -56,7 +59,7 @@ module.exports = {
       }
     });
   },
-  sendSubscribersDailyMsg: async (userController, btcController, ethController) => {
+  sendSubscribersDailyMsg: async (userController) => {
     let broadcastList = [];
     const users = await userController.getAllUsers();
     users.forEach((user) => {
@@ -88,4 +91,30 @@ module.exports = {
         console.log(response.body);
       });
   },
-};
+  botResponseMsg: async (response, message) => {
+    let dbPrice = 0, diff = 0;
+    switch (message.text) {
+      case 'Hi':
+        _this.sendKeyboardMsg(response);
+        break;
+      case 'BTC':
+        const btcPriceOnDemand = await btcController.currentPrice();
+        dbPrice = await btcController.latestPriceFromDb();
+        diff = helper.calcPriceDiff(btcPriceOnDemand, dbPrice);
+        _this.sendRichMediaMsg(response, 'BTC', btcPriceOnDemand, diff);
+        break;
+      case 'ETH':
+        const ethPriceOnDemand = await ethController.currentPrice();
+        dbPrice = await ethController.latestPriceFromDb();
+        diff = helper.calcPriceDiff(ethPriceOnDemand, dbPrice);
+        _this.sendRichMediaMsg(response, 'ETH', ethPriceOnDemand, diff);
+        break;
+      default:
+        _this.sendTextMsg(
+          response,
+          `Please type \'Hi\' to see BTC and ETH buttons.`
+        );
+        break;
+    }
+  },
+});

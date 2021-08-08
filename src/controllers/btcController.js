@@ -1,8 +1,8 @@
 const btcApi = require('../api/btcApi');
 
 module.exports = {
-  savePrice: async () => {
-    return await btcApi.savePriceToDb();
+  savePrice: () => {
+    return btcApi.savePriceToDb();
   },
   latestPriceFromDb: () => {
     return btcApi.getPriceFromDb();

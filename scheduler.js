@@ -11,10 +11,6 @@ module.exports = () => {
     ethController.savePrice();
 
     // Send daily price to subscribers
-    msgController.sendSubscribersDailyMsg(
-      userController,
-      btcController,
-      ethController
-    );
+    msgController.sendSubscribersDailyMsg(userController);
   });
 };
