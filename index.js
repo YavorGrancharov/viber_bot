@@ -30,10 +30,8 @@ app.use('/', router);
 app.use('/viber/webhook', bot.middleware());
 app.listen(settings.port, async () => {
   try {
-    const publicUrl = await ngrok.getPublicUrl();
     console.log(`Application running on port: ${settings.port}`);
-    console.log('publicUrl => ', publicUrl);
-    bot.setWebhook(`${publicUrl}/viber/webhook`);
+    bot.setWebhook(`https://vbr-bot.herokuapp.com/viber/webhook`);
   } catch (error) {
     console.log('Can not set webhook on following server.');
     console.error(error);
