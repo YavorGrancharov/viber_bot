@@ -9,8 +9,9 @@ const ngrok = require('./publicUrl');
 
 // Initialize bot
 const bot = require('./src/config/bot')();
-// Use bot logic
 require('./src/controllers/botController').onMessageReceived(bot);
+require('./src/controllers/botController').onSubscribed(bot);
+require('./src/controllers/botController').onError(bot);
 
 // Create server
 const express = require('express');

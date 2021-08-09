@@ -10,4 +10,14 @@ module.exports = {
       msgController.botResponseMsg(response, message);
     });
   },
+  onSubscribed: (bot) => {
+    bot.on(BotEvents.onSubscribed, (response) => {
+      response.send(`Thanks for subscribing, ${response.userProfile.name}`);
+    });
+  },
+  onError: (bot) => {
+    bot.on(BotEvents.onError, (error) => {
+      console.log(error);
+    });
+  },
 };
