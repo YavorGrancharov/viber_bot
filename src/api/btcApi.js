@@ -2,11 +2,9 @@ const BtcModel = require('../models/BtcModel');
 const helper = require('../helpers/helper');
 
 async function saveLatestPrice(currentPrice, oldPrice) {
-  if (currentPrice !== oldPrice) {
-    return BtcModel.create({
-      price: currentPrice,
-    });
-  }
+  return BtcModel.create({
+    price: currentPrice,
+  });
 }
 
 async function getPriceFromDb() {
@@ -37,12 +35,11 @@ async function savePriceToDb() {
 
       const currentPrice = await getCurrentPrice();
       if (data.length !== 0) {
-        const price = data[0].price;
         const priceId = data[0]._id;
-        saveLatestPrice(currentPrice, price);
         deletePrevPrice(priceId);
+        saveLatestPrice(currentPrice);
       } else {
-        saveLatestPrice(currentPrice, null);
+        saveLatestPrice(currentPrice);
       }
     });
 }
