@@ -11,12 +11,12 @@ module.exports = {
     });
   },
   onSubscribed: (bot) => {
-    bot.on(BotEvents.onSubscribed, (response) => {
+    bot.on(BotEvents.SUBSCRIBED, (response) => {
       response.send(`Thanks for subscribing, ${response.userProfile.name}`);
     });
   },
   onError: (bot) => {
-    bot.on(BotEvents.onError, (error) => {
+    bot.on(BotEvents.ERROR, (error) => {
       console.log(error);
     });
   },
