@@ -26,12 +26,16 @@ require('./src/config/express')(app);
 require('./src/config/router')(router);
 require('./scheduler')();
 
+require('heroku-self-ping').default(`${process.env.WEBHOOK_URL}`, {
+  interval: 10 * 60 * 1000,
+});
+
 app.use('/', router);
 app.use('/viber/webhook', bot.middleware());
 app.listen(settings.port, async () => {
   try {
     console.log(`Application running on port: ${settings.port}`);
-    bot.setWebhook(`https://vbr-bot.herokuapp.com/viber/webhook`);
+    bot.setWebhook(`${process.env.WEBHOOK_URL}/viber/webhook`);
   } catch (error) {
     console.log('Can not set webhook on following server.');
     console.error(error);

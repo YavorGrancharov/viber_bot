@@ -71,7 +71,6 @@ const _this = (module.exports = {
     const currentEthPrice = await ethController.currentPrice();
 
     const data = {
-      auth_token: process.env.VIBER_ACCESS_TOKEN,
       chat_hostname: 'SN-CHAT-24_',
       broadcast_list: broadcastList,
       min_api_version: 7,
@@ -86,6 +85,7 @@ const _this = (module.exports = {
       .headers({
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        'X-Viber-Auth-Token': process.env.VIBER_ACCESS_TOKEN,
       })
       .send(data)
       .then((response) => {

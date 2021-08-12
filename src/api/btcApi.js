@@ -1,7 +1,7 @@
 const BtcModel = require('../models/BtcModel');
 const helper = require('../helpers/helper');
 
-async function saveLatestPrice(currentPrice, oldPrice) {
+async function saveLatestPrice(currentPrice) {
   return BtcModel.create({
     price: currentPrice,
   });
