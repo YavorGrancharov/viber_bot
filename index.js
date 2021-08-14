@@ -23,12 +23,11 @@ const app = express();
 
 require('./src/config/database')(settings);
 require('./src/config/express')(app);
-require('./src/config/router')(router);
+require('./src/config/router').get(router);
+require('./src/config/router').post(router);
 require('./scheduler')();
 
-require('heroku-self-ping').default(`${process.env.WEBHOOK_URL}`, {
-  interval: 10 * 60 * 1000,
-});
+require('./idle')(process.env.WEBHOOK_URL)
 
 app.use('/', router);
 app.use('/viber/webhook', bot.middleware());
