@@ -32,4 +32,15 @@ module.exports = {
       direction,
     };
   },
+  request: (method, url, { data = {}, headers }) => {
+    return unirest(method, url)
+      .headers(headers)
+      .send(data)
+      .then((response) => {
+        return response.body;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };

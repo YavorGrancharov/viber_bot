@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const unirest = require('unirest');
 
 const TextMessage = require('viber-bot').Message.Text;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
@@ -8,7 +7,6 @@ const RichMediaMessage = require('viber-bot').Message.RichMedia;
 
 const ethController = require('./ethController');
 const btcController = require('./btcController');
-
 const helper = require('../helpers/helper');
 
 const _this = (module.exports = {
@@ -80,17 +78,14 @@ const _this = (module.exports = {
         `Current ETH price: $${currentEthPrice}`,
     };
 
-    unirest
-      .post('https://chatapi.viber.com/pa/broadcast_message')
-      .headers({
+    helper.request('POST', 'https://chatapi.viber.com/pa/broadcast_message', {
+      data: data,
+      headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-Viber-Auth-Token': process.env.VIBER_ACCESS_TOKEN,
-      })
-      .send(data)
-      .then((response) => {
-        console.log(response.body);
-      });
+      },
+    });
   },
   botResponseMsg: async (response, message) => {
     if (!(message instanceof TextMessage)) {
