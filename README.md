@@ -15,10 +15,17 @@ Create a file **.env** in **main** directory and add this below text
 ```
 VIBER_ACCESS_TOKEN=Your Viber Access Token Add HERE
 MONGODB_URI=Your Mongo DB Connection String Add Here
+WEBHOOK_URL=Your Heroku URL like https://yourappname.herokuapp.com
 PORT=3000
 ```
 
 #### For local testing
+
+Install **ngrok** globally with command
+
+```
+npm install -g ngrok
+```
 
 Clone project with
 ```
@@ -36,7 +43,7 @@ Then, inside **index.js** file, replace this block of code:
 app.listen(settings.port, async () => {
   try {
     console.log(`Application running on port: ${settings.port}`);
-    bot.setWebhook(`https://vbr-bot.herokuapp.com/viber/webhook`);
+    bot.setWebhook(`${process.env.WEBHOOK_URL}/viber/webhook`);
   } catch (error) {
     console.log('Can not set webhook on following server.');
     console.error(error);
@@ -59,4 +66,6 @@ app.listen(settings.port, async () => {
   }
 });
 ```
-And run project using commands **npm run ngrok** and **npm run start**
+And run project using commands **npm run ngrok** and **npm run start** on two separate terminals
+
+You can see it running on **localhost:3000**
