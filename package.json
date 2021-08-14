@@ -18,7 +18,6 @@
     "heroku-self-ping": "^2.0.1",
     "mongodb": "^4.0.1",
     "mongoose": "^5.13.5",
-    "ngrok": "^4.1.0",
     "node-cron": "^3.0.0",
     "unirest": "^0.6.0",
     "viber-bot": "^1.0.16"
