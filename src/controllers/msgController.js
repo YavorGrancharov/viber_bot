@@ -8,6 +8,8 @@ const RichMediaMessage = require('viber-bot').Message.RichMedia;
 const ethController = require('./ethController');
 const btcController = require('./btcController');
 const helper = require('../helpers/helper');
+const urls = require('../constants/requestUrl');
+const msg = require('../constants/responseMsg');
 
 const _this = (module.exports = {
   sendTextMsg: (response, message) => {
@@ -78,7 +80,7 @@ const _this = (module.exports = {
         `Current ETH price: $${currentEthPrice}`,
     };
 
-    helper.request('POST', 'https://chatapi.viber.com/pa/broadcast_message', {
+    helper.request('POST', urls.broadcastMsgUrl, {
       data: data,
       headers: {
         Accept: 'application/json',
@@ -91,7 +93,7 @@ const _this = (module.exports = {
     if (!(message instanceof TextMessage)) {
       _this.sendTextMsg(
         response,
-        `Sorry. I can only understand text messages.`
+        msg.textMsgOnly
       );
     }
 
@@ -117,7 +119,7 @@ const _this = (module.exports = {
         default:
           _this.sendTextMsg(
             response,
-            `Please type \'Hi\' to see BTC and ETH buttons.`
+            msg.pleaseTypeHi
           );
           break;
       }

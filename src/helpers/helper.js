@@ -1,11 +1,9 @@
 const unirest = require('unirest');
+const urls = require('../constants/requestUrl');
 
 module.exports = {
   getTicker: async (pairKey) => {
-    const req = await unirest(
-      'GET',
-      `https://api.kraken.com/0/public/Ticker?pair=${pairKey}`
-    );
+    const req = await unirest('GET', `${urls.krakenUrl}${pairKey}`);
 
     return req.body.result;
   },
@@ -37,6 +35,7 @@ module.exports = {
       .headers(headers)
       .send(data)
       .then((response) => {
+        console.log(response.body);
         return response.body;
       })
       .catch((error) => {

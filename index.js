@@ -6,6 +6,7 @@ if (!process.env.VIBER_ACCESS_TOKEN) {
 }
 
 const ngrok = require('./publicUrl');
+const msg = require('./src/constants/responseMsg');
 
 // Initialize bot
 const bot = require('./src/config/bot')();
@@ -33,7 +34,7 @@ app.use('/', router);
 app.use('/viber/webhook', bot.middleware());
 app.listen(settings.port, async () => {
   try {
-    console.log(`Application running on port: ${settings.port}`);
+    console.log(`${msg.appRunningOnPort}: ${settings.port}`);
     bot.setWebhook(`${process.env.WEBHOOK_URL}/viber/webhook`);
   } catch (error) {
     console.log('Can not set webhook on following server.');
