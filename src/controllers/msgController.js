@@ -10,11 +10,12 @@ const EthModel = require('../models/EthModel');
 
 const cryptoController = require('./cryptoController');
 const helper = require('../helpers/helper');
-const urls = require('../constants/requestUrl');
-const resMsg = require('../constants/responseMsg');
-const reqMsg = require('../constants/requestMsg');
-const method = require('../constants/requestMethod');
-const headers = require('../constants/requestHeaders');
+
+const { RequestUrl } = require('../constants/requestUrl');
+const { ResponseMessage } = require('../constants/responseMessage');
+const { RequestMessage } = require('../constants/requestMessage');
+const { RequestMethod } = require('../constants/requestMethod');
+const { RequestHeaders } = require('../constants/requestHeaders');
 
 const _this = (module.exports = {
   sendTextMsg: (response, message) => {
@@ -73,12 +74,12 @@ const _this = (module.exports = {
     });
 
     const currentBtcPrice = await cryptoController.currentPrice(
-      reqMsg.BTC,
-      reqMsg
+      RequestMessage.BTC,
+      RequestMessage
     );
     const currentEthPrice = await cryptoController.currentPrice(
-      reqMsg.ETH,
-      reqMsg
+      RequestMessage.ETH,
+      RequestMessage
     );
 
     const data = {
@@ -87,48 +88,58 @@ const _this = (module.exports = {
       min_api_version: 7,
       type: 'text',
       text:
-        `${resMsg.CURRENT_BTC_PRICE}$${currentBtcPrice}\n` +
-        `${resMsg.CURRENT_ETH_PRICE}$${currentEthPrice}`,
+        `${ResponseMessage.CURRENT_BTC_PRICE}$${currentBtcPrice}\n` +
+        `${ResponseMessage.CURRENT_ETH_PRICE}$${currentEthPrice}`,
     };
 
-    headers['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;
-    helper.request(method.POST, urls.BROADCAST_MESSAGE_URL, {
+    RequestHeaders['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;
+    helper.request(RequestMethod.POST, RequestUrl.BROADCAST_MESSAGE_URL, {
       data: data,
-      headers: headers,
+      headers: RequestHeaders,
     });
   },
   botResponseMsg: async (response, message) => {
     if (!(message instanceof TextMessage)) {
-      _this.sendTextMsg(response, resMsg.TEXT_MESSAGE_ONLY);
+      _this.sendTextMsg(response, ResponseMessage.TEXT_MESSAGE_ONLY);
     }
 
     if (message instanceof TextMessage) {
       let dbPrice = 0,
         diff = 0;
       switch (message.text) {
-        case reqMsg.HI:
+        case RequestMessage.HI:
           _this.sendKeyboardMsg(response);
           break;
-        case reqMsg.BTC:
+        case RequestMessage.BTC:
           const btcPriceOnDemand = await cryptoController.currentPrice(
-            reqMsg.BTC,
-            reqMsg
+            RequestMessage.BTC,
+            RequestMessage
           );
           dbPrice = await cryptoController.latestPriceFromDb(BtcModel);
           diff = helper.calcPriceDiff(btcPriceOnDemand, dbPrice);
-          _this.sendRichMediaMsg(response, reqMsg.BTC, btcPriceOnDemand, diff);
+          _this.sendRichMediaMsg(
+            response,
+            RequestMessage.BTC,
+            btcPriceOnDemand,
+            diff
+          );
           break;
-        case reqMsg.ETH:
+        case RequestMessage.ETH:
           const ethPriceOnDemand = await cryptoController.currentPrice(
-            reqMsg.ETH,
-            reqMsg
+            RequestMessage.ETH,
+            RequestMessage
           );
           dbPrice = await cryptoController.latestPriceFromDb(EthModel);
           diff = helper.calcPriceDiff(ethPriceOnDemand, dbPrice);
-          _this.sendRichMediaMsg(response, reqMsg.ETH, ethPriceOnDemand, diff);
+          _this.sendRichMediaMsg(
+            response,
+            RequestMessage.ETH,
+            ethPriceOnDemand,
+            diff
+          );
           break;
         default:
-          _this.sendTextMsg(response, resMsg.PLEASE_TYPE_HI);
+          _this.sendTextMsg(response, ResponseMessage.PLEASE_TYPE_HI);
           break;
       }
     }

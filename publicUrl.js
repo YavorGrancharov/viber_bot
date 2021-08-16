@@ -1,12 +1,13 @@
 const http = require('http');
+const { RequestMethod } = require('./src/constants/requestMethod');
+const { RequestHeaders } = require('./src/constants/requestHeaders');
+
 const options = {
   hostname: '127.0.0.1',
   port: 4040,
   path: '/api/tunnels',
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  method: RequestMethod.GET,
+  headers: RequestHeaders,
 };
 
 module.exports.getPublicUrl = function () {

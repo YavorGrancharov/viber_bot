@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const resMsg = require('../constants/responseMsg');
+const { ResponseMessage } = require('../constants/responseMessage');
 
 mongoose.Promise = global.Promise;
 
@@ -18,8 +18,10 @@ module.exports = (settings) => {
       throw err;
     }
 
-    console.log(resMsg.MONGODB_READY);
+    console.log(ResponseMessage.MONGODB_READY);
   });
 
-  db.on('error', (err) => console.log(`${resMsg.DATABASE_ERROR}${err}`));
+  db.on('error', (err) =>
+    console.log(`${ResponseMessage.DATABASE_ERROR}${err}`)
+  );
 };

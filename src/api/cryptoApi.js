@@ -13,15 +13,15 @@ async function getPriceFromDb(model) {
   return price;
 }
 
-async function getCurrentPrice(crypto, reqMsg) {
+async function getCurrentPrice(crypto, requestMessage) {
   let currentPrice;
   switch (crypto) {
-    case reqMsg.BTC:
-      currentPrice = await helper.getTicker(reqMsg.XBTUSD);
+    case requestMessage.BTC:
+      currentPrice = await helper.getTicker(requestMessage.XBTUSD);
       currentPrice = Number(currentPrice.XXBTZUSD.a[0]);
       break;
-    case reqMsg.ETH:
-      currentPrice = await helper.getTicker(reqMsg.ETHUSD);
+    case requestMessage.ETH:
+      currentPrice = await helper.getTicker(requestMessage.ETHUSD);
       currentPrice = Number(currentPrice.XETHZUSD.a[0]);
       break;
   }
@@ -32,7 +32,7 @@ async function deletePrevPrice(model, _id) {
   return model.findByIdAndDelete(_id);
 }
 
-async function savePriceToDb(model, crypto, reqMsg) {
+async function savePriceToDb(model, crypto, requestMessage) {
   model
     .find({})
     .limit(1)
@@ -43,7 +43,7 @@ async function savePriceToDb(model, crypto, reqMsg) {
         return;
       }
 
-      const currentPrice = await getCurrentPrice(crypto, reqMsg);
+      const currentPrice = await getCurrentPrice(crypto, requestMessage);
       if (data.length !== 0) {
         const priceId = data[0]._id;
         deletePrevPrice(model, priceId);

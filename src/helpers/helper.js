@@ -1,10 +1,13 @@
 const unirest = require('unirest');
-const urls = require('../constants/requestUrl');
-const method = require('../constants/requestMethod');
+const { RequestUrl } = require('../constants/requestUrl');
+const { RequestMethod } = require('../constants/requestMethod');
 
 module.exports = {
   getTicker: async (pairKey) => {
-    const req = await unirest(method.GET, `${urls.KRAKEN_URL}${pairKey}`);
+    const req = await unirest(
+      RequestMethod.GET,
+      `${RequestUrl.KRAKEN_URL}${pairKey}`
+    );
 
     return req.body.result;
   },

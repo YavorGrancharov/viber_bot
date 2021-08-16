@@ -1,13 +1,13 @@
 const cryptoApi = require('../api/cryptoApi');
 
 module.exports = {
-  savePrice: (model, crypto, reqMsg) => {
-    return cryptoApi.savePriceToDb(model, crypto, reqMsg);
+  savePrice: (model, crypto, requestMessage) => {
+    return cryptoApi.savePriceToDb(model, crypto, requestMessage);
   },
   latestPriceFromDb: (model) => {
     return cryptoApi.getPriceFromDb(model);
   },
-  currentPrice: (crypto, reqMsg) => {
-    return cryptoApi.getCurrentPrice(crypto, reqMsg);
+  currentPrice: (crypto, requestMessage) => {
+    return cryptoApi.getCurrentPrice(crypto, requestMessage);
   },
 };

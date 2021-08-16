@@ -1,11 +1,11 @@
 const helper = require('./src/helpers/helper');
-const method = require('./src/constants/requestMethod');
-const headers = require('./src/constants/requestHeaders');
+const { RequestMethod } = require('./src/constants/requestMethod');
+const { RequestHeaders } = require('./src/constants/requestHeaders');
 
 module.exports = (url) => {
   setInterval(() => {
-    helper.request(method.POST, url, {
-      headers: headers,
+    helper.request(RequestMethod.POST, url, {
+      headers: RequestHeaders,
     });
   }, 20 * 60 * 1000);
 };

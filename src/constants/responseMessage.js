@@ -1,4 +1,4 @@
-module.exports = Object.freeze({
+const ResponseMessage = Object.freeze({
   TEXT_MESSAGE_ONLY: 'Sorry. I can only understand text messages.',
   PLEASE_TYPE_HI: "Please type 'Hi' to see BTC and ETH buttons.",
   THANKS_FOR_SUBSCRIBING: 'Thanks for subscribing',
@@ -12,5 +12,7 @@ module.exports = Object.freeze({
   DATABASE_ERROR: 'Database error: ',
   CURRENT_BTC_PRICE: 'Current BTC price: ',
   CURRENT_ETH_PRICE: 'Current ETH price: ',
-  BOT_NAME: 'Finance Bot'
+  BOT_NAME: 'Finance Bot',
 });
+
+module.exports = { ResponseMessage };
