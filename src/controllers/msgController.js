@@ -5,11 +5,16 @@ const TextMessage = require('viber-bot').Message.Text;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
 
-const ethController = require('./ethController');
-const btcController = require('./btcController');
+const BtcModel = require('../models/BtcModel');
+const EthModel = require('../models/EthModel');
+
+const cryptoController = require('./cryptoController');
 const helper = require('../helpers/helper');
 const urls = require('../constants/requestUrl');
-const msg = require('../constants/responseMsg');
+const resMsg = require('../constants/responseMsg');
+const reqMsg = require('../constants/requestMsg');
+const method = require('../constants/requestMethod');
+const headers = require('../constants/requestHeaders');
 
 const _this = (module.exports = {
   sendTextMsg: (response, message) => {
@@ -67,8 +72,14 @@ const _this = (module.exports = {
       broadcastList.push(user.viberId);
     });
 
-    const currentBtcPrice = await btcController.currentPrice();
-    const currentEthPrice = await ethController.currentPrice();
+    const currentBtcPrice = await cryptoController.currentPrice(
+      reqMsg.BTC,
+      reqMsg
+    );
+    const currentEthPrice = await cryptoController.currentPrice(
+      reqMsg.ETH,
+      reqMsg
+    );
 
     const data = {
       chat_hostname: 'SN-CHAT-24_',
@@ -76,51 +87,48 @@ const _this = (module.exports = {
       min_api_version: 7,
       type: 'text',
       text:
-        `Current BTC price: $${currentBtcPrice}\n` +
-        `Current ETH price: $${currentEthPrice}`,
+        `${resMsg.CURRENT_BTC_PRICE}$${currentBtcPrice}\n` +
+        `${resMsg.CURRENT_ETH_PRICE}$${currentEthPrice}`,
     };
 
-    helper.request('POST', urls.broadcastMsgUrl, {
+    headers['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;
+    helper.request(method.POST, urls.BROADCAST_MESSAGE_URL, {
       data: data,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-Viber-Auth-Token': process.env.VIBER_ACCESS_TOKEN,
-      },
+      headers: headers,
     });
   },
   botResponseMsg: async (response, message) => {
     if (!(message instanceof TextMessage)) {
-      _this.sendTextMsg(
-        response,
-        msg.textMsgOnly
-      );
+      _this.sendTextMsg(response, resMsg.TEXT_MESSAGE_ONLY);
     }
 
     if (message instanceof TextMessage) {
       let dbPrice = 0,
         diff = 0;
       switch (message.text) {
-        case 'Hi':
+        case reqMsg.HI:
           _this.sendKeyboardMsg(response);
           break;
-        case 'BTC':
-          const btcPriceOnDemand = await btcController.currentPrice();
-          dbPrice = await btcController.latestPriceFromDb();
+        case reqMsg.BTC:
+          const btcPriceOnDemand = await cryptoController.currentPrice(
+            reqMsg.BTC,
+            reqMsg
+          );
+          dbPrice = await cryptoController.latestPriceFromDb(BtcModel);
           diff = helper.calcPriceDiff(btcPriceOnDemand, dbPrice);
-          _this.sendRichMediaMsg(response, 'BTC', btcPriceOnDemand, diff);
+          _this.sendRichMediaMsg(response, reqMsg.BTC, btcPriceOnDemand, diff);
           break;
-        case 'ETH':
-          const ethPriceOnDemand = await ethController.currentPrice();
-          dbPrice = await ethController.latestPriceFromDb();
+        case reqMsg.ETH:
+          const ethPriceOnDemand = await cryptoController.currentPrice(
+            reqMsg.ETH,
+            reqMsg
+          );
+          dbPrice = await cryptoController.latestPriceFromDb(EthModel);
           diff = helper.calcPriceDiff(ethPriceOnDemand, dbPrice);
-          _this.sendRichMediaMsg(response, 'ETH', ethPriceOnDemand, diff);
+          _this.sendRichMediaMsg(response, reqMsg.ETH, ethPriceOnDemand, diff);
           break;
         default:
-          _this.sendTextMsg(
-            response,
-            msg.pleaseTypeHi
-          );
+          _this.sendTextMsg(response, resMsg.PLEASE_TYPE_HI);
           break;
       }
     }

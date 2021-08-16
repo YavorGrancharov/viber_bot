@@ -1,12 +1,13 @@
 require('dotenv').config();
 
+const resMsg = require('./src/constants/responseMsg');
+
 if (!process.env.VIBER_ACCESS_TOKEN) {
-  console.log('Could not find bot account token key.');
+  console.log(resMsg.MISSING_BOT_ACCOUNT_KEY);
   return;
 }
 
 const ngrok = require('./publicUrl');
-const msg = require('./src/constants/responseMsg');
 
 // Initialize bot
 const bot = require('./src/config/bot')();
@@ -34,10 +35,10 @@ app.use('/', router);
 app.use('/viber/webhook', bot.middleware());
 app.listen(settings.port, async () => {
   try {
-    console.log(`${msg.appRunningOnPort}: ${settings.port}`);
+    console.log(`${resMsg.APP_RUNNING_ON_PORT}: ${settings.port}`);
     bot.setWebhook(`${process.env.WEBHOOK_URL}/viber/webhook`);
   } catch (error) {
-    console.log('Can not set webhook on following server.');
+    console.log(resMsg.CANNOT_SET_WEBHOOK);
     console.error(error);
     process.exit(1);
   }

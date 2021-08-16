@@ -1,14 +1,15 @@
 const bot = require('../config/bot')();
+const resMsg = require('../constants/responseMsg');
 
 module.exports = {
   get: (router) => {
     router.get('/', function (req, res) {
-      res.send(`Hello, I am ${bot.name}.`);
+      res.send(`${resMsg.HELLO}${bot.name}.`);
     });
   },
   post: (router) => {
     router.post('/', function (req, res) {
-      res.status(200).send(`The answer to everything is 42.`);
+      res.status(200).send(resMsg.ANSWER_TO_EVERYTHING);
     });
   },
 };

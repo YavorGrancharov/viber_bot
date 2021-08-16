@@ -1,6 +1,6 @@
 const BotEvents = require('viber-bot').Events;
 const Events = require('../constants/botEvents');
-const msg = require('../constants/responseMsg');
+const resMsg = require('../constants/responseMsg');
 
 const userController = require('./userController');
 const msgController = require('./msgController');
@@ -15,7 +15,7 @@ module.exports = {
   onSubscribed: (bot) => {
     bot.on(BotEvents[Events.SUBSCRIBED], (response) => {
       response.send(
-        `${msg.thanksForSubscribing}, ${response.userProfile.name}`
+        `${resMsg.THANKS_FOR_SUBSCRIBING}, ${response.userProfile.name}`
       );
     });
   },
