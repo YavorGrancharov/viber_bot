@@ -18,7 +18,7 @@ module.exports = (settings) => {
       throw err;
     }
 
-    console.log(resMsg.EXPRESS_READY);
+    console.log(resMsg.MONGODB_READY);
   });
 
   db.on('error', (err) => console.log(`${resMsg.DATABASE_ERROR}${err}`));
