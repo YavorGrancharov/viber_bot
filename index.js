@@ -1,9 +1,10 @@
 require('dotenv').config();
 
-const { ResponseMessage } = require('./src/constants/responseMessage');
+const { MISSING_BOT_ACCOUNT_KEY, APP_RUNNING_ON_PORT, CANNOT_SET_WEBHOOK } =
+  require('./src/constants/responseMessage').ResponseMessage;
 
 if (!process.env.VIBER_ACCESS_TOKEN) {
-  console.log(ResponseMessage.MISSING_BOT_ACCOUNT_KEY);
+  console.log(MISSING_BOT_ACCOUNT_KEY);
   return;
 }
 
@@ -35,10 +36,10 @@ app.use('/', router);
 app.use('/viber/webhook', bot.middleware());
 app.listen(settings.port, async () => {
   try {
-    console.log(`${ResponseMessage.APP_RUNNING_ON_PORT}: ${settings.port}`);
+    console.log(`${APP_RUNNING_ON_PORT}: ${settings.port}`);
     bot.setWebhook(`${process.env.WEBHOOK_URL}/viber/webhook`);
   } catch (error) {
-    console.log(ResponseMessage.CANNOT_SET_WEBHOOK);
+    console.log(CANNOT_SET_WEBHOOK);
     console.error(error);
     process.exit(1);
   }
