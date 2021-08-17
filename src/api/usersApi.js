@@ -1,11 +1,11 @@
-const { findOne, create, find } = require('../models/UserModel');
+const User = require('../models/UserModel');
 
 async function saveUserToDb(userProfile) {
   const { id, name, avatar, country, language, apiVersion } = userProfile;
   try {
-    const user = await findOne({ viberId: id }).lean();
+    const user = await User.findOne({ viberId: id }).lean();
     if (!user) {
-      create({
+      User.create({
         viberId: id,
         name: name,
         avatar: avatar,
@@ -20,7 +20,7 @@ async function saveUserToDb(userProfile) {
 }
 
 async function getAllUsersFromDb() {
-  const users = await find({}).lean();
+  const users = await User.find({}).lean();
   return users;
 }
 
