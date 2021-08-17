@@ -55,7 +55,7 @@ with this one:
 ```js
 app.listen(settings.port, async () => {
   try {
-    const publicUrl = await ngrok.getPublicUrl();
+    const publicUrl = await getPublicUrl();
     console.log(`Application running on port: ${settings.port}`);
     console.log('publicUrl => ', publicUrl);
     bot.setWebhook(`${publicUrl}/viber/webhook`);

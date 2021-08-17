@@ -1,21 +1,20 @@
 const BotEvents = require('viber-bot').Events;
-const { ResponseMessage } = require('../constants/responseMessage');
+const { THANKS_FOR_SUBSCRIBING } =
+  require('../constants/responseMessage').ResponseMessage;
 
-const userController = require('./userController');
-const msgController = require('./msgController');
+const { saveUser } = require('./userController');
+const { botResponseMsg } = require('./msgController');
 
 module.exports = {
   onMessageReceived: (bot) => {
     bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
-      userController.saveUser(response);
-      msgController.botResponseMsg(response, message);
+      saveUser(response);
+      botResponseMsg(response, message);
     });
   },
   onSubscribed: (bot) => {
     bot.on(BotEvents.SUBSCRIBED, (response) => {
-      response.send(
-        `${ResponseMessage.THANKS_FOR_SUBSCRIBING}, ${response.userProfile.name}`
-      );
+      response.send(`${THANKS_FOR_SUBSCRIBING}, ${response.userProfile.name}`);
     });
   },
   onError: (bot) => {

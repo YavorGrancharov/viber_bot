@@ -8,14 +8,20 @@ const RichMediaMessage = require('viber-bot').Message.RichMedia;
 const BtcModel = require('../models/BtcModel');
 const EthModel = require('../models/EthModel');
 
-const cryptoApi = require('../api/cryptoApi');
-const helper = require('../helpers/helper');
+const { getCurrentPrice, getPriceFromDb } = require('../api/cryptoApi');
+const { request, setProp, calcPriceDiff } = require('../helpers/helper');
 
-const { RequestUrl } = require('../constants/requestUrl');
-const { ResponseMessage } = require('../constants/responseMessage');
 const { RequestMessage } = require('../constants/requestMessage');
-const { RequestMethod } = require('../constants/requestMethod');
 const { RequestHeaders } = require('../constants/requestHeaders');
+
+const { POST } = require('../constants/requestMethod').RequestMethod;
+const { BROADCAST_MESSAGE_URL } = require('../constants/requestUrl').RequestUrl;
+const {
+  CURRENT_BTC_PRICE,
+  CURRENT_ETH_PRICE,
+  TEXT_MESSAGE_ONLY,
+  PLEASE_TYPE_HI,
+} = require('../constants/responseMessage').ResponseMessage;
 
 const _this = (module.exports = {
   sendTextMsg: (response, message) => {
@@ -49,8 +55,8 @@ const _this = (module.exports = {
         return;
       }
 
-      const color = helper.setProp(diff).color;
-      const direction = helper.setProp(diff).direction;
+      const color = setProp(diff).color;
+      const direction = setProp(diff).direction;
 
       msg = JSON.parse(msg);
       msg.Buttons[0].Text =
@@ -73,11 +79,11 @@ const _this = (module.exports = {
       broadcastList.push(user.viberId);
     });
 
-    const currentBtcPrice = await cryptoApi.getCurrentPrice(
+    const currentBtcPrice = await getCurrentPrice(
       RequestMessage.BTC,
       RequestMessage
     );
-    const currentEthPrice = await cryptoApi.getCurrentPrice(
+    const currentEthPrice = await getCurrentPrice(
       RequestMessage.ETH,
       RequestMessage
     );
@@ -88,19 +94,19 @@ const _this = (module.exports = {
       min_api_version: 7,
       type: 'text',
       text:
-        `${ResponseMessage.CURRENT_BTC_PRICE}$${currentBtcPrice}\n` +
-        `${ResponseMessage.CURRENT_ETH_PRICE}$${currentEthPrice}`,
+        `${CURRENT_BTC_PRICE}$${currentBtcPrice}\n` +
+        `${CURRENT_ETH_PRICE}$${currentEthPrice}`,
     };
 
     RequestHeaders['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;
-    helper.request(RequestMethod.POST, RequestUrl.BROADCAST_MESSAGE_URL, {
+    request(POST, BROADCAST_MESSAGE_URL, {
       data: data,
       headers: RequestHeaders,
     });
   },
   botResponseMsg: async (response, message) => {
     if (!(message instanceof TextMessage)) {
-      _this.sendTextMsg(response, ResponseMessage.TEXT_MESSAGE_ONLY);
+      _this.sendTextMsg(response, TEXT_MESSAGE_ONLY);
     }
 
     if (message instanceof TextMessage) {
@@ -111,12 +117,12 @@ const _this = (module.exports = {
           _this.sendKeyboardMsg(response);
           break;
         case RequestMessage.BTC:
-          const btcPriceOnDemand = await cryptoApi.getCurrentPrice(
+          const btcPriceOnDemand = await getCurrentPrice(
             RequestMessage.BTC,
             RequestMessage
           );
-          dbPrice = await cryptoApi.getPriceFromDb(BtcModel);
-          diff = helper.calcPriceDiff(btcPriceOnDemand, dbPrice);
+          dbPrice = await getPriceFromDb(BtcModel);
+          diff = calcPriceDiff(btcPriceOnDemand, dbPrice);
           _this.sendRichMediaMsg(
             response,
             RequestMessage.BTC,
@@ -125,12 +131,12 @@ const _this = (module.exports = {
           );
           break;
         case RequestMessage.ETH:
-          const ethPriceOnDemand = await cryptoApi.getCurrentPrice(
+          const ethPriceOnDemand = await getCurrentPrice(
             RequestMessage.ETH,
             RequestMessage
           );
-          dbPrice = await cryptoApi.getPriceFromDb(EthModel);
-          diff = helper.calcPriceDiff(ethPriceOnDemand, dbPrice);
+          dbPrice = await getPriceFromDb(EthModel);
+          diff = calcPriceDiff(ethPriceOnDemand, dbPrice);
           _this.sendRichMediaMsg(
             response,
             RequestMessage.ETH,
@@ -139,7 +145,7 @@ const _this = (module.exports = {
           );
           break;
         default:
-          _this.sendTextMsg(response, ResponseMessage.PLEASE_TYPE_HI);
+          _this.sendTextMsg(response, PLEASE_TYPE_HI);
           break;
       }
     }

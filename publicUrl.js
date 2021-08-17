@@ -1,18 +1,18 @@
-const http = require('http');
-const { RequestMethod } = require('./src/constants/requestMethod');
+const { request } = require('http');
 const { RequestHeaders } = require('./src/constants/requestHeaders');
+const { GET } = require('./src/constants/requestMethod').RequestMethod;
 
 const options = {
   hostname: '127.0.0.1',
   port: 4040,
   path: '/api/tunnels',
-  method: RequestMethod.GET,
+  method: GET,
   headers: RequestHeaders,
 };
 
 module.exports.getPublicUrl = function () {
   return new Promise((resolve, reject) => {
-    const req = http.request(options, function (res) {
+    const req = request(options, function (res) {
       res.setEncoding('utf8');
       res.on('data', function (config) {
         config = JSON.parse(config);

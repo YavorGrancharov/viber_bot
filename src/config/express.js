@@ -1,8 +1,9 @@
 const express = require('express');
-const { ResponseMessage } = require('../constants/responseMessage');
+const { EXPRESS_READY } =
+  require('../constants/responseMessage').ResponseMessage;
 
 module.exports = (app) => {
   app.use(express.static('node_modules'));
 
-  console.log(ResponseMessage.EXPRESS_READY);
+  console.log(EXPRESS_READY);
 };

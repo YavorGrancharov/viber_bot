@@ -7,7 +7,7 @@ if (!process.env.VIBER_ACCESS_TOKEN) {
   return;
 }
 
-const ngrok = require('./publicUrl');
+const { getPublicUrl } = require('./publicUrl');
 
 // Initialize bot
 const bot = require('./src/config/bot')();

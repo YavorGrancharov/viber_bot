@@ -1,4 +1,4 @@
-const helper = require('../helpers/helper');
+const { getTicker } = require('../helpers/helper');
 
 async function saveLatestPrice(model, currentPrice) {
   return model.create({
@@ -17,11 +17,11 @@ async function getCurrentPrice(crypto, requestMessage) {
   let currentPrice;
   switch (crypto) {
     case requestMessage.BTC:
-      currentPrice = await helper.getTicker(requestMessage.XBTUSD);
+      currentPrice = await getTicker(requestMessage.XBTUSD);
       currentPrice = Number(currentPrice.XXBTZUSD.a[0]);
       break;
     case requestMessage.ETH:
-      currentPrice = await helper.getTicker(requestMessage.ETHUSD);
+      currentPrice = await getTicker(requestMessage.ETHUSD);
       currentPrice = Number(currentPrice.XETHZUSD.a[0]);
       break;
   }

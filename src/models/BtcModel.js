@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model } = require('mongoose');
+const BtcSchema = Schema;
 
-const btcSchema = new Schema(
+const btcSchema = new BtcSchema(
   {
     price: Number,
   },
@@ -10,6 +10,6 @@ const btcSchema = new Schema(
   }
 );
 
-const BTC = mongoose.model('BTC', btcSchema, 'btc');
+const BTC = model('BTC', btcSchema, 'btc');
 
 module.exports = BTC;

@@ -1,12 +1,12 @@
-const usersApi = require('../api/usersApi');
+const { saveUserToDb, getAllUsersFromDb } = require('../api/usersApi');
 
 module.exports = {
   saveUser: (response) => {
     const user = response.userProfile;
-    usersApi.saveUserToDb(user);
+    saveUserToDb(user);
   },
   getAllUsers: async () => {
-    const users = await usersApi.getAllUsersFromDb();
+    const users = await getAllUsersFromDb();
     return users;
   },
 };
