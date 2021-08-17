@@ -8,7 +8,7 @@ const RichMediaMessage = require('viber-bot').Message.RichMedia;
 const BtcModel = require('../models/BtcModel');
 const EthModel = require('../models/EthModel');
 
-const cryptoController = require('./cryptoController');
+const cryptoApi = require('../api/cryptoApi');
 const helper = require('../helpers/helper');
 
 const { RequestUrl } = require('../constants/requestUrl');
@@ -73,11 +73,11 @@ const _this = (module.exports = {
       broadcastList.push(user.viberId);
     });
 
-    const currentBtcPrice = await cryptoController.currentPrice(
+    const currentBtcPrice = await cryptoApi.getCurrentPrice(
       RequestMessage.BTC,
       RequestMessage
     );
-    const currentEthPrice = await cryptoController.currentPrice(
+    const currentEthPrice = await cryptoApi.getCurrentPrice(
       RequestMessage.ETH,
       RequestMessage
     );
@@ -111,11 +111,11 @@ const _this = (module.exports = {
           _this.sendKeyboardMsg(response);
           break;
         case RequestMessage.BTC:
-          const btcPriceOnDemand = await cryptoController.currentPrice(
+          const btcPriceOnDemand = await cryptoApi.getCurrentPrice(
             RequestMessage.BTC,
             RequestMessage
           );
-          dbPrice = await cryptoController.latestPriceFromDb(BtcModel);
+          dbPrice = await cryptoApi.getPriceFromDb(BtcModel);
           diff = helper.calcPriceDiff(btcPriceOnDemand, dbPrice);
           _this.sendRichMediaMsg(
             response,
@@ -125,11 +125,11 @@ const _this = (module.exports = {
           );
           break;
         case RequestMessage.ETH:
-          const ethPriceOnDemand = await cryptoController.currentPrice(
+          const ethPriceOnDemand = await cryptoApi.getCurrentPrice(
             RequestMessage.ETH,
             RequestMessage
           );
-          dbPrice = await cryptoController.latestPriceFromDb(EthModel);
+          dbPrice = await cryptoApi.getPriceFromDb(EthModel);
           diff = helper.calcPriceDiff(ethPriceOnDemand, dbPrice);
           _this.sendRichMediaMsg(
             response,
