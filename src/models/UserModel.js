@@ -1,7 +1,7 @@
-const { Schema, model } = require('mongoose');
-const UserSchema = Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let userSchema = new UserSchema(
+const userSchema = new Schema(
   {
     viberId: String,
     name: String,
@@ -15,6 +15,6 @@ let userSchema = new UserSchema(
   }
 );
 
-let User = model('User', userSchema, 'users');
+const User = mongoose.model('User', userSchema, 'users');
 
 module.exports = User;

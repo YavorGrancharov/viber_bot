@@ -1,7 +1,7 @@
-const { Schema, model } = require('mongoose');
-const EthSchema = Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const ethSchema = new EthSchema(
+const ethSchema = new Schema(
   {
     price: Number,
   },
@@ -10,6 +10,6 @@ const ethSchema = new EthSchema(
   }
 );
 
-const ETH = model('ETH', ethSchema, 'eth');
+const ETH = mongoose.model('ETH', ethSchema, 'eth');
 
 module.exports = ETH;
