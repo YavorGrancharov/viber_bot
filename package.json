@@ -9,13 +9,16 @@
     "scheduler": "node scheduler.js",
     "ngrok": "ngrok http 3000"
   },
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
+  },
   "author": "YG",
   "license": "MIT",
   "dependencies": {
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "heroku-self-ping": "^2.0.1",
     "mongodb": "^4.0.1",
     "mongoose": "^5.13.5",
     "node-cron": "^3.0.0",
