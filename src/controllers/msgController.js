@@ -24,7 +24,7 @@ const {
   PLEASE_TYPE_HI,
 } = require('../constants/responseMessage').ResponseMessage;
 
-const _this = (module.exports = {
+const postman = (module.exports = {
   sendTextMsg: (response, message) => {
     response.send(new TextMessage(message));
   },
@@ -101,7 +101,7 @@ const _this = (module.exports = {
   },
   botResponseMsg: async (response, message) => {
     if (!(message instanceof TextMessage)) {
-      _this.sendTextMsg(response, TEXT_MESSAGE_ONLY);
+      postman.sendTextMsg(response, TEXT_MESSAGE_ONLY);
     }
 
     if (message instanceof TextMessage) {
@@ -109,22 +109,22 @@ const _this = (module.exports = {
         diff = 0;
       switch (message.text) {
         case HI:
-          _this.sendKeyboardMsg(response);
+          postman.sendKeyboardMsg(response);
           break;
         case BTC:
           const btcPriceOnDemand = await getCurrentPrice(BTC);
           dbPrice = await getPriceFromDb(BtcModel);
           diff = calcPriceDiff(btcPriceOnDemand, dbPrice);
-          _this.sendRichMediaMsg(response, BTC, btcPriceOnDemand, diff);
+          postman.sendRichMediaMsg(response, BTC, btcPriceOnDemand, diff);
           break;
         case ETH:
           const ethPriceOnDemand = await getCurrentPrice(ETH);
           dbPrice = await getPriceFromDb(EthModel);
           diff = calcPriceDiff(ethPriceOnDemand, dbPrice);
-          _this.sendRichMediaMsg(response, ETH, ethPriceOnDemand, diff);
+          postman.sendRichMediaMsg(response, ETH, ethPriceOnDemand, diff);
           break;
         default:
-          _this.sendTextMsg(response, PLEASE_TYPE_HI);
+          postman.sendTextMsg(response, PLEASE_TYPE_HI);
           break;
       }
     }
