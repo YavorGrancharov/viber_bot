@@ -8,13 +8,14 @@ const RichMediaMessage = require('viber-bot').Message.RichMedia;
 const BtcModel = require('../models/BtcModel');
 const EthModel = require('../models/EthModel');
 
+const { RequestHeaders } = require('../constants/requestHeaders');
+
+const { getAllUsers } = require('./userController');
 const { getCurrentPrice, getPriceFromDb } = require('../api/cryptoApi');
 const { request, setProp, calcPriceDiff } = require('../helpers/helper');
 
-const { RequestMessage } = require('../constants/requestMessage');
-const { RequestHeaders } = require('../constants/requestHeaders');
-
 const { POST } = require('../constants/requestMethod').RequestMethod;
+const { BTC, ETH } = require('../constants/requestMessage').RequestMessage;
 const { BROADCAST_MESSAGE_URL } = require('../constants/requestUrl').RequestUrl;
 const {
   CURRENT_BTC_PRICE,
@@ -72,21 +73,15 @@ const _this = (module.exports = {
       }
     });
   },
-  sendSubscribersDailyMsg: async (userController) => {
+  sendSubscribersDailyMsg: async () => {
     let broadcastList = [];
-    const users = await userController.getAllUsers();
+    const users = await getAllUsers();
     users.forEach((user) => {
       broadcastList.push(user.viberId);
     });
 
-    const currentBtcPrice = await getCurrentPrice(
-      RequestMessage.BTC,
-      RequestMessage
-    );
-    const currentEthPrice = await getCurrentPrice(
-      RequestMessage.ETH,
-      RequestMessage
-    );
+    const currentBtcPrice = await getCurrentPrice(BTC);
+    const currentEthPrice = await getCurrentPrice(ETH);
 
     const data = {
       chat_hostname: 'SN-CHAT-24_',
@@ -113,36 +108,20 @@ const _this = (module.exports = {
       let dbPrice = 0,
         diff = 0;
       switch (message.text) {
-        case RequestMessage.HI:
+        case HI:
           _this.sendKeyboardMsg(response);
           break;
-        case RequestMessage.BTC:
-          const btcPriceOnDemand = await getCurrentPrice(
-            RequestMessage.BTC,
-            RequestMessage
-          );
+        case BTC:
+          const btcPriceOnDemand = await getCurrentPrice(BTC);
           dbPrice = await getPriceFromDb(BtcModel);
           diff = calcPriceDiff(btcPriceOnDemand, dbPrice);
-          _this.sendRichMediaMsg(
-            response,
-            RequestMessage.BTC,
-            btcPriceOnDemand,
-            diff
-          );
+          _this.sendRichMediaMsg(response, BTC, btcPriceOnDemand, diff);
           break;
-        case RequestMessage.ETH:
-          const ethPriceOnDemand = await getCurrentPrice(
-            RequestMessage.ETH,
-            RequestMessage
-          );
+        case ETH:
+          const ethPriceOnDemand = await getCurrentPrice(ETH);
           dbPrice = await getPriceFromDb(EthModel);
           diff = calcPriceDiff(ethPriceOnDemand, dbPrice);
-          _this.sendRichMediaMsg(
-            response,
-            RequestMessage.ETH,
-            ethPriceOnDemand,
-            diff
-          );
+          _this.sendRichMediaMsg(response, ETH, ethPriceOnDemand, diff);
           break;
         default:
           _this.sendTextMsg(response, PLEASE_TYPE_HI);

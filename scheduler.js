@@ -1,6 +1,4 @@
-const { RequestMessage } = require('./src/constants/requestMessage');
-const { user } = require('./src/controllers/consolidator');
-
+const { BTC, ETH } = require('./src/constants/requestMessage').RequestMessage;
 const { savePriceToDb } = require('./src/api/cryptoApi');
 const { sendSubscribersDailyMsg } =
   require('./src/controllers/consolidator').message;
@@ -13,10 +11,10 @@ const cron = require('node-cron');
 module.exports = () => {
   cron.schedule('0 9 * * *', async () => {
     // Save latest ETH, BTC prices to DB on every 24h
-    savePriceToDb(BtcModel, RequestMessage.BTC, RequestMessage);
-    savePriceToDb(EthModel, RequestMessage.ETH, RequestMessage);
+    savePriceToDb(BtcModel, BTC);
+    savePriceToDb(EthModel, ETH);
 
     // Send daily price to subscribers
-    sendSubscribersDailyMsg(user);
+    sendSubscribersDailyMsg();
   });
 };
