@@ -15,7 +15,7 @@ const { getCurrentPrice, getPriceFromDb } = require('../api/cryptoApi');
 const { request, setProp, calcPriceDiff } = require('../helpers/helper');
 
 const { POST } = require('../constants/requestMethod').RequestMethod;
-const { BTC, ETH } = require('../constants/requestMessage').RequestMessage;
+const { HI, BTC, ETH } = require('../constants/requestMessage').RequestMessage;
 const { BROADCAST_MESSAGE_URL } = require('../constants/requestUrl').RequestUrl;
 const {
   CURRENT_BTC_PRICE,
