@@ -81,7 +81,6 @@ const postman = (module.exports = {
 
     stream.on('close', () => {
       console.log(YOU_HAVE_BEEN_SERVED);
-      stream.destroy();
     });
 
     stream.on('error', (error) => {
