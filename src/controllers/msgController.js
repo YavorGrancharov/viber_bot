@@ -5,17 +5,15 @@ const TextMessage = require('viber-bot').Message.Text;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
 
-const BtcModel = require('../models/BtcModel');
-const EthModel = require('../models/EthModel');
-
+const { ev } = require('./eventController');
 const { RequestHeaders } = require('../constants/requestHeaders');
 
 const { getAllUsers } = require('./userController');
-const { getCurrentPrice, getPriceFromDb } = require('../api/cryptoApi');
-const { request, setProp, calcPriceDiff } = require('../helpers/helper');
+const { getCurrentPrice } = require('../api/cryptoApi');
+const { request, setProp } = require('../helpers/helper');
 
 const { POST } = require('../constants/requestMethod').RequestMethod;
-const { HI, BTC, ETH } = require('../constants/requestMessage').RequestMessage;
+const { BTC, ETH } = require('../constants/requestMessage').RequestMessage;
 const { BROADCAST_MESSAGE_URL } = require('../constants/requestUrl').RequestUrl;
 const {
   CURRENT_BTC_PRICE,
@@ -120,27 +118,11 @@ const postman = (module.exports = {
     }
 
     if (message instanceof TextMessage) {
-      let dbPrice = 0,
-        diff = 0;
-      switch (message.text) {
-        case HI:
-          postman.sendKeyboardMsg(response);
-          break;
-        case BTC:
-          const btcPriceOnDemand = await getCurrentPrice(BTC);
-          dbPrice = await getPriceFromDb(BtcModel);
-          diff = calcPriceDiff(btcPriceOnDemand, dbPrice);
-          postman.sendRichMediaMsg(response, BTC, btcPriceOnDemand, diff);
-          break;
-        case ETH:
-          const ethPriceOnDemand = await getCurrentPrice(ETH);
-          dbPrice = await getPriceFromDb(EthModel);
-          diff = calcPriceDiff(ethPriceOnDemand, dbPrice);
-          postman.sendRichMediaMsg(response, ETH, ethPriceOnDemand, diff);
-          break;
-        default:
-          postman.sendTextMsg(response, PLEASE_TYPE_HI);
-          break;
+      const compare = new RegExp(/^(?!Hi$|BTC$|ETH$).*$/);
+      if (compare.test(message.text)) {
+        postman.sendTextMsg(response, PLEASE_TYPE_HI);
+      } else {
+        ev.emit(message.text, response, postman);
       }
     }
   },
