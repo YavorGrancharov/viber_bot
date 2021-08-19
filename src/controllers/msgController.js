@@ -35,6 +35,7 @@ const postman = (module.exports = {
     const filePath = path.normalize(
       path.join(__dirname, '../msgJsonTemplates/keyboardMsg.json')
     );
+
     const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
 
     stream.on('open', () => {
