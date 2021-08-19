@@ -13,6 +13,8 @@ const ResponseMessage = Object.freeze({
   CURRENT_BTC_PRICE: 'Current BTC price: ',
   CURRENT_ETH_PRICE: 'Current ETH price: ',
   BOT_NAME: 'Finance Bot',
+  POSTMAN_KNOCKS_TWICE: 'Postman knocks twice.',
+  YOU_HAVE_BEEN_SERVED: 'You\'ve been served!',
 });
 
 module.exports = { ResponseMessage };

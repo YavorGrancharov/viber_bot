@@ -22,6 +22,8 @@ const {
   CURRENT_ETH_PRICE,
   TEXT_MESSAGE_ONLY,
   PLEASE_TYPE_HI,
+  POSTMAN_KNOCKS_TWICE,
+  YOU_HAVE_BEEN_SERVED,
 } = require('../constants/responseMessage').ResponseMessage;
 
 const postman = (module.exports = {
@@ -29,36 +31,44 @@ const postman = (module.exports = {
     response.send(new TextMessage(message));
   },
   sendKeyboardMsg: (response) => {
+    let msg = '';
     const filePath = path.normalize(
       path.join(__dirname, '../msgJsonTemplates/keyboardMsg.json')
     );
-    fs.readFile(filePath, 'utf8', (err, msg) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
+    const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
 
+    stream.on('open', () => {
+      console.log(POSTMAN_KNOCKS_TWICE);
+    });
+
+    stream.on('data', (piece) => {
+      msg += piece;
+    });
+
+    stream.on('end', () => {
       const keyboardMsg = JSON.parse(msg);
-      try {
-        response.send(new KeyboardMessage(keyboardMsg, null, null, null, 3));
-      } catch (error) {
-        console.log(error);
-      }
+      response.send(new KeyboardMessage(keyboardMsg, null, null, null, 3));
+    });
+
+    stream.on('error', (error) => {
+      console.log(error.stack);
     });
   },
   sendRichMediaMsg: async (response, crypto, price, diff) => {
+    let msg = '';
     const filePath = path.normalize(
       path.join(__dirname, '../msgJsonTemplates/richMediaMsg.json')
     );
-    fs.readFile(filePath, 'utf8', (err, msg) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
 
+    const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
+
+    stream.on('data', (piece) => {
+      msg += piece;
+    });
+
+    stream.on('end', () => {
       const color = setProp(diff).color;
       const direction = setProp(diff).direction;
-
       msg = JSON.parse(msg);
       msg.Buttons[0].Text =
         `<font color=\"#FFFFFF\">Current ${crypto} price is $${price}</font>` +
@@ -66,11 +76,16 @@ const postman = (module.exports = {
         `<span style=\"color:${color}\">${diff}%</span><br>`;
 
       const richMediaMsg = msg;
-      try {
-        response.send(new RichMediaMessage(richMediaMsg, null, null));
-      } catch (error) {
-        console.log(error);
-      }
+      response.send(new RichMediaMessage(richMediaMsg, null, null));
+    });
+
+    stream.on('close', () => {
+      console.log(YOU_HAVE_BEEN_SERVED);
+      stream.destroy();
+    });
+
+    stream.on('error', (error) => {
+      console.log(error.stack);
     });
   },
   sendSubscribersDailyMsg: async () => {
