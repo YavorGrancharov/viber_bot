@@ -30,7 +30,7 @@ require('./src/config/router').get(router);
 require('./src/config/router').post(router);
 require('./scheduler')();
 
-require('./idle')(process.env.WEBHOOK_URL);
+// require('./idle')(process.env.WEBHOOK_URL);
 
 app.use('/', router);
 app.use('/viber/webhook', bot.middleware());

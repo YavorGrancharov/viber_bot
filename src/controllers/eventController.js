@@ -13,22 +13,22 @@ ev.on(HI, (response, callback) => {
   callback.sendKeyboardMsg(response);
 });
 
-ev.on(BTC, async (response, callback) => {
+ev.on(BTC, async (response, listener) => {
   let dbPrice = 0,
     diff = 0;
   const btcPriceOnDemand = await getCurrentPrice(BTC);
   dbPrice = await getPriceFromDb(BtcModel);
   diff = calcPriceDiff(btcPriceOnDemand, dbPrice);
-  callback.sendRichMediaMsg(response, BTC, btcPriceOnDemand, diff);
+  listener.sendRichMediaMsg(response, BTC, btcPriceOnDemand, diff);
 });
 
-ev.on(ETH, async (response, callback) => {
+ev.on(ETH, async (response, listener) => {
   let dbPrice = 0,
     diff = 0;
   const ethPriceOnDemand = await getCurrentPrice(ETH);
   dbPrice = await getPriceFromDb(EthModel);
   diff = calcPriceDiff(ethPriceOnDemand, dbPrice);
-  callback.sendRichMediaMsg(response, ETH, ethPriceOnDemand, diff);
+  listener.sendRichMediaMsg(response, ETH, ethPriceOnDemand, diff);
 });
 
 module.exports = { ev };
