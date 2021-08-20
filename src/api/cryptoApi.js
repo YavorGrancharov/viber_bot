@@ -2,12 +2,6 @@ const { getTicker } = require('../helpers/helper');
 const { BTC, ETH, XBTUSD, ETHUSD } =
   require('../constants/requestMessage').RequestMessage;
 
-async function saveLatestPrice(model, currentPrice) {
-  return model.create({
-    price: currentPrice,
-  });
-}
-
 async function getPriceFromDb(model) {
   let price;
   price = await model.find({}).limit(1).sort({ $natural: -1 });
@@ -30,10 +24,6 @@ async function getCurrentPrice(crypto) {
   return currentPrice;
 }
 
-async function deletePrevPrice(model, _id) {
-  return model.findByIdAndDelete(_id);
-}
-
 async function savePriceToDb(model, crypto) {
   model
     .find({})
@@ -48,12 +38,22 @@ async function savePriceToDb(model, crypto) {
       const currentPrice = await getCurrentPrice(crypto);
       if (data.length !== 0) {
         const priceId = data[0]._id;
-        deletePrevPrice(model, priceId);
-        saveLatestPrice(model, currentPrice);
+        _deletePrevPrice(model, priceId);
+        _saveLatestPrice(model, currentPrice);
       } else {
-        saveLatestPrice(model, currentPrice);
+        _saveLatestPrice(model, currentPrice);
       }
-    });
+    });F
+}
+
+async function _saveLatestPrice(model, currentPrice) {
+  return model.create({
+    price: currentPrice,
+  });
+}
+
+async function _deletePrevPrice(model, _id) {
+  return model.findByIdAndDelete(_id);
 }
 
 module.exports = {

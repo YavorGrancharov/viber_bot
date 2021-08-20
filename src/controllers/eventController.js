@@ -5,30 +5,29 @@ const BtcModel = require('../models/BtcModel');
 const EthModel = require('../models/EthModel');
 
 const { getCurrentPrice, getPriceFromDb } = require('../api/cryptoApi');
-const { calcPriceDiff } = require('../helpers/helper');
+const { calcPriceChange } = require('../helpers/helper');
 
 const { HI, BTC, ETH } = require('../constants/requestMessage').RequestMessage;
 
-ev.on(HI, (response, callback) => {
-  callback.sendKeyboardMsg(response);
+ev.on(HI, (response, listener) => {
+  listener.sendKeyboardMsg(response);
 });
 
 ev.on(BTC, async (response, listener) => {
-  let dbPrice = 0,
-    diff = 0;
-  const btcPriceOnDemand = await getCurrentPrice(BTC);
-  dbPrice = await getPriceFromDb(BtcModel);
-  diff = calcPriceDiff(btcPriceOnDemand, dbPrice);
-  listener.sendRichMediaMsg(response, BTC, btcPriceOnDemand, diff);
+  _bindCryptoData(response, BTC, BtcModel, listener);
 });
 
 ev.on(ETH, async (response, listener) => {
-  let dbPrice = 0,
-    diff = 0;
-  const ethPriceOnDemand = await getCurrentPrice(ETH);
-  dbPrice = await getPriceFromDb(EthModel);
-  diff = calcPriceDiff(ethPriceOnDemand, dbPrice);
-  listener.sendRichMediaMsg(response, ETH, ethPriceOnDemand, diff);
+  _bindCryptoData(response, ETH, EthModel, listener);
 });
+
+async function _bindCryptoData(response, crypto, model, listener) {
+  let dbPrice = 0,
+    change = 0;
+  const cryptoCurrentPrice = await getCurrentPrice(crypto);
+  dbPrice = await getPriceFromDb(model);
+  change = calcPriceChange(cryptoCurrentPrice, dbPrice);
+  listener.sendRichMediaMsg(response, crypto, cryptoCurrentPrice, change);
+}
 
 module.exports = { ev };

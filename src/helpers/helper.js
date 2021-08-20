@@ -8,7 +8,7 @@ module.exports = {
 
     return req.body.result;
   },
-  calcPriceDiff: (currentPrice, oldPriceFromDb) => {
+  calcPriceChange: (currentPrice, oldPriceFromDb) => {
     let diff = (((currentPrice - oldPriceFromDb) / currentPrice) * 100).toFixed(
       2
     );
