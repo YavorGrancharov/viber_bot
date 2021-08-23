@@ -12,8 +12,11 @@ const { getPublicUrl } = require('./publicUrl');
 
 // Initialize bot
 const bot = require('./src/config/bot')();
+require('./src/controllers/botController').onConversationStarted(bot);
 require('./src/controllers/botController').onMessageReceived(bot);
-require('./src/controllers/botController').onSubscribed(bot);
+require('./src/controllers/botController').onTextMessage(bot);
+require('./src/controllers/botController').onUnsubscribe(bot);
+require('./src/controllers/botController').onSubscribe(bot);
 require('./src/controllers/botController').onError(bot);
 
 // Create server

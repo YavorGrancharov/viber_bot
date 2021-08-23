@@ -1,12 +1,26 @@
-const { saveUserToDb, getAllUsersFromDb } = require('../api/usersApi');
+const {
+  saveUserToDb,
+  getAllUsersFromDb,
+  deleteUserFromDb,
+} = require('../api/usersApi');
 
 module.exports = {
   saveUser: (response) => {
-    const user = response.userProfile;
-    saveUserToDb(user);
+    try {
+      const user = response.userProfile;
+      saveUserToDb(user);
+    } catch (error) {
+      console.log(error);
+    }
   },
-  getAllUsers: async () => {
-    const users = await getAllUsersFromDb();
-    return users;
+  getAllUsers: () => {
+    getAllUsersFromDb()
+      .then((users) => users)
+      .catch((error) => console.log(error));
+  },
+  deleteUser: (id) => {
+    deleteUserFromDb(id)
+      .then((user) => user)
+      .catch((error) => console.log(error));
   },
 };

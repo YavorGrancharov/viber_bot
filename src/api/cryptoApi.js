@@ -43,7 +43,7 @@ async function savePriceToDb(model, crypto) {
       } else {
         _saveLatestPrice(model, currentPrice);
       }
-    });F
+    });
 }
 
 async function _saveLatestPrice(model, currentPrice) {

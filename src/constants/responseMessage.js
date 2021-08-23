@@ -14,7 +14,9 @@ const ResponseMessage = Object.freeze({
   CURRENT_ETH_PRICE: 'Current ETH price: ',
   BOT_NAME: 'Finance Bot',
   POSTMAN_KNOCKS_TWICE: 'Postman knocks twice.',
-  YOU_HAVE_BEEN_SERVED: 'You\'ve been served!',
+  YOU_HAVE_BEEN_SERVED: "You've been served!",
+  WELCOME_TO_FINANCE_BOT:
+    'Welcome to finance bot a place where you can get info about BTC and ETH prices.',
 });
 
 module.exports = { ResponseMessage };

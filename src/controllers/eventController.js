@@ -7,11 +7,7 @@ const EthModel = require('../models/EthModel');
 const { getCurrentPrice, getPriceFromDb } = require('../api/cryptoApi');
 const { calcPriceChange } = require('../helpers/helper');
 
-const { HI, BTC, ETH } = require('../constants/requestMessage').RequestMessage;
-
-ev.on(HI, (response, listener) => {
-  listener.sendKeyboardMsg(response);
-});
+const { BTC, ETH } = require('../constants/requestMessage').RequestMessage;
 
 ev.on(BTC, async (response, listener) => {
   _bindCryptoData(response, BTC, BtcModel, listener);

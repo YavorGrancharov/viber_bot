@@ -19,7 +19,6 @@ const {
   CURRENT_BTC_PRICE,
   CURRENT_ETH_PRICE,
   TEXT_MESSAGE_ONLY,
-  PLEASE_TYPE_HI,
   POSTMAN_KNOCKS_TWICE,
   YOU_HAVE_BEEN_SERVED,
 } = require('../constants/responseMessage').ResponseMessage;
@@ -118,10 +117,8 @@ const postman = (module.exports = {
     }
 
     if (message instanceof TextMessage) {
-      const compare = new RegExp(/^(?!Hi$|BTC$|ETH$).*$/);
-      if (compare.test(message.text)) {
-        postman.sendTextMsg(response, PLEASE_TYPE_HI);
-      } else {
+      const compare = new RegExp(/^BTC|ETH$/i);
+      if(compare.test(message.text)) {
         ev.emit(message.text, response, postman);
       }
     }
