@@ -14,12 +14,12 @@ module.exports = {
     }
   },
   getAllUsers: () => {
-    getAllUsersFromDb()
+    return getAllUsersFromDb()
       .then((users) => users)
       .catch((error) => console.log(error));
   },
   deleteUser: (id) => {
-    deleteUserFromDb(id)
+    return deleteUserFromDb(id)
       .then((user) => user)
       .catch((error) => console.log(error));
   },

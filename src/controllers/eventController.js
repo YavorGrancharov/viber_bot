@@ -7,13 +7,28 @@ const EthModel = require('../models/EthModel');
 const { getCurrentPrice, getPriceFromDb } = require('../api/cryptoApi');
 const { calcPriceChange } = require('../helpers/helper');
 
-const { BTC, ETH } = require('../constants/requestMessage').RequestMessage;
+const localeService = require('../services/localeService');
 
-ev.on(BTC, async (response, listener) => {
+const { BTC, ETH, EN, BG } =
+  require('../constants/requestMessage').RequestMessage;
+
+ev.on('EN', (response, listener) => {
+  localeService.setLocale(EN);
+  console.log(localeService.getLocale())
+  listener.sendKeyboardMsg(response);
+});
+
+ev.on('BG', (response, listener) => {
+  localeService.setLocale(BG);
+  console.log(localeService.getLocale())
+  listener.sendKeyboardMsg(response);
+});
+
+ev.on('BTC', async (response, listener) => {
   _bindCryptoData(response, BTC, BtcModel, listener);
 });
 
-ev.on(ETH, async (response, listener) => {
+ev.on('ETH', async (response, listener) => {
   _bindCryptoData(response, ETH, EthModel, listener);
 });
 

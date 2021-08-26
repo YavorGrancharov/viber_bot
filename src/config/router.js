@@ -1,16 +1,18 @@
 const bot = require('../config/bot')();
-const { HELLO, ANSWER_TO_EVERYTHING } =
-  require('../constants/responseMessage').ResponseMessage;
+const localeService = require('../services/localeService');
 
 module.exports = {
   get: (router) => {
     router.get('/', function (req, res) {
-      res.send(`${HELLO}${bot.name}.`);
+      res.render('home/index', {
+        locale: localeService.getLocale(),
+        hello: localeService.translate('Hello', { name: bot.name }),
+      });
     });
   },
   post: (router) => {
     router.post('/', function (req, res) {
-      res.status(200).send(ANSWER_TO_EVERYTHING);
+      res.status(200).send(localeService.translate('Answer_to_everything'));
     });
   },
 };

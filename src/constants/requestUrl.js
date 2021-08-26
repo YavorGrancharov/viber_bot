@@ -3,6 +3,7 @@ const RequestUrl = Object.freeze({
   BROADCAST_MESSAGE_URL: 'https://chatapi.viber.com/pa/broadcast_message',
   BOT_AVATAR_URL:
     'https://cdn.pixabay.com/photo/2019/06/23/19/15/bitcoin-4294492_960_720.png',
+  SEND_MESSAGE_URL: 'https://chatapi.viber.com/pa/send_message',
 });
 
 module.exports = { RequestUrl };

@@ -1,4 +1,6 @@
 {
+  "min_api_version": 7,
+  "type": "rich_media",
   "BgColor": "#FFFFFF",
   "Buttons": [
     {

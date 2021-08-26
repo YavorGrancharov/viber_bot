@@ -1,6 +1,8 @@
 const BotEvents = require('viber-bot').Events;
 
-const { THANKS_FOR_SUBSCRIBING } =
+const localeService = require('../services/localeService');
+
+const { WELCOME_TO_FINANCE_BOT } =
   require('../constants/responseMessage').ResponseMessage;
 
 const { saveUser, deleteUser } = require('./userController');
@@ -8,6 +10,7 @@ const {
   sendTextMsg,
   botResponseMsg,
   sendKeyboardMsg,
+  sendWelcomeMsg,
 } = require('./msgController');
 
 module.exports = {
@@ -15,7 +18,10 @@ module.exports = {
     bot.on(
       BotEvents.CONVERSATION_STARTED,
       (response, isSubscribed, context, onFinish) => {
-        bot.sendMessage(response.userProfile, sendKeyboardMsg(response));
+        bot.sendMessage(
+          response.userProfile,
+          sendWelcomeMsg(response, WELCOME_TO_FINANCE_BOT)
+        );
       }
     );
   },
@@ -35,7 +41,9 @@ module.exports = {
       saveUser(response);
       sendTextMsg(
         response,
-        `${THANKS_FOR_SUBSCRIBING} ${response.userProfile.name}`
+        `${localeService.translate('Thanks_for_subscribing')} ${
+          response.userProfile.name
+        }`
       );
     });
   },
@@ -50,7 +58,7 @@ module.exports = {
     });
   },
   onTextMessage: (bot) => {
-    bot.onTextMessage(/^(?!BTC$|ETH$).*$/i, (message, response) => {
+    bot.onTextMessage(/^(?!EN|BG|BTC$|ETH$).*$/i, (message, response) => {
       bot.sendMessage(response.userProfile, sendKeyboardMsg(response));
     });
   },

@@ -1,4 +1,5 @@
 const unirest = require('unirest');
+
 const { KRAKEN_URL } = require('../constants/requestUrl').RequestUrl;
 const { GET } = require('../constants/requestMethod').RequestMethod;
 

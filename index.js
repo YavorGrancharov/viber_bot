@@ -8,6 +8,14 @@ if (!process.env.VIBER_ACCESS_TOKEN) {
   return;
 }
 
+process.on('unhandledRejection', (reason, promise) => {
+  console.log(
+    `Unhandled Rejection at: Promise ${promise.catch((error) =>
+      console.log(error)
+    )} with reason: ${reason.name}`
+  );
+});
+
 const { getPublicUrl } = require('./publicUrl');
 
 // Initialize bot

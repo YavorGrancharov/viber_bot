@@ -1,0 +1,33 @@
+{
+  "min_api_version": 7,
+  "type": "text",
+  "keyboard": {
+    "Type": "keyboard",
+    "Buttons": [
+      {
+        "Columns": 3,
+        "Rows": 1,
+        "Text": "<font color=\"#ffffff\">EN</font>",
+        "TextSize": "medium",
+        "TextHAlign": "center",
+        "TextVAlign": "middle",
+        "ActionType": "reply",
+        "ActionBody": "EN",
+        "BgColor": "#5e5ece",
+        "Image": ""
+      },
+      {
+        "Columns": 3,
+        "Rows": 1,
+        "Text": "<font color=\"#ffffff\">BG</font>",
+        "TextSize": "medium",
+        "TextHAlign": "center",
+        "TextVAlign": "middle",
+        "ActionType": "reply",
+        "ActionBody": "BG",
+        "BgColor": "#5e5ece",
+        "Image": ""
+      }
+    ]
+  }
+}

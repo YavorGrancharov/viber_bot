@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const localeService = require('../services/localeService');
+
 const TextMessage = require('viber-bot').Message.Text;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
@@ -14,7 +16,8 @@ const { request, setProp } = require('../helpers/helper');
 
 const { POST } = require('../constants/requestMethod').RequestMethod;
 const { BTC, ETH } = require('../constants/requestMessage').RequestMessage;
-const { BROADCAST_MESSAGE_URL } = require('../constants/requestUrl').RequestUrl;
+const { BROADCAST_MESSAGE_URL, SEND_MESSAGE_URL } =
+  require('../constants/requestUrl').RequestUrl;
 const {
   CURRENT_BTC_PRICE,
   CURRENT_ETH_PRICE,
@@ -24,6 +27,34 @@ const {
 } = require('../constants/responseMessage').ResponseMessage;
 
 const postman = (module.exports = {
+  sendWelcomeMsg: (response, message) => {
+    let msg = '';
+    const filePath = path.normalize(
+      path.join(__dirname, '../msgJsonTemplates/welcomeMsg.json')
+    );
+
+    const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
+
+    stream.on('data', (piece) => {
+      msg += piece;
+    });
+
+    stream.on('end', () => {
+      msg = JSON.parse(msg);
+      msg.receiver = response.userProfile.id;
+      msg.text = message;
+      const welcomeMsg = msg;
+      RequestHeaders['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;
+      request(POST, SEND_MESSAGE_URL, {
+        data: welcomeMsg,
+        headers: RequestHeaders,
+      });
+    });
+
+    stream.on('error', (error) => {
+      console.log(error.stack);
+    });
+  },
   sendTextMsg: (response, message) => {
     response.send(new TextMessage(message));
   },
@@ -66,11 +97,17 @@ const postman = (module.exports = {
 
     stream.on('end', () => {
       const color = setProp(diff).color;
-      const direction = setProp(diff).direction;
+      const direction = localeService.translate(setProp(diff).direction);
       msg = JSON.parse(msg);
       msg.Buttons[0].Text =
-        `<font color=\"#FFFFFF\">Current ${crypto} price is $${price}</font>` +
-        `<br><br><font color=\"#FFFFFF\">It is ${direction} for the last 24h with </font>` +
+        `<font color=\"#FFFFFF\">${localeService.translate('Current_price_is', {
+          name: crypto,
+          value: price,
+        })}</font>` +
+        `<br><br><font color=\"#FFFFFF\">${localeService.translate(
+          'Last_24_hours_change',
+          { value: direction }
+        )}</font>` +
         `<span style=\"color:${color}\">${diff}%</span><br>`;
 
       const richMediaMsg = msg;
@@ -113,12 +150,15 @@ const postman = (module.exports = {
   },
   botResponseMsg: async (response, message) => {
     if (!(message instanceof TextMessage)) {
-      postman.sendTextMsg(response, TEXT_MESSAGE_ONLY);
+      postman.sendTextMsg(
+        response,
+        localeService.translate('I_can_only_understand_text_messages')
+      );
     }
 
     if (message instanceof TextMessage) {
-      const compare = new RegExp(/^BTC|ETH$/i);
-      if(compare.test(message.text)) {
+      const compare = new RegExp(/^EN|BG|BTC|ETH$/i);
+      if (compare.test(message.text)) {
         ev.emit(message.text, response, postman);
       }
     }
