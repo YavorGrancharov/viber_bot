@@ -69,3 +69,9 @@ app.listen(settings.port, async () => {
 And run project using commands **npm run ngrok** and **npm run start** on two separate terminals
 
 You can see it running on **localhost:3000**
+
+#### Run all tests with command
+
+```
+npm run test
+```

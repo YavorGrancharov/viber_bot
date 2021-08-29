@@ -1,5 +1,5 @@
-const { BTC, ETH } = require('./src/constants/requestMessage').RequestMessage;
-const { savePriceToDb } = require('./src/api/cryptoApi');
+const { BTC, ETH } = require('./src/constants/request.message').RequestMessage;
+const { savePriceToDb } = require('./src/api/crypto.api');
 const { sendSubscribersDailyMsg } =
   require('./src/controllers/consolidator').message;
 

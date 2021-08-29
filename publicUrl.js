@@ -1,6 +1,6 @@
 const { request } = require('http');
-const { RequestHeaders } = require('./src/constants/requestHeaders');
-const { GET } = require('./src/constants/requestMethod').RequestMethod;
+const { RequestHeaders } = require('./src/constants/request.headers');
+const { GET } = require('./src/constants/request.method').RequestMethod;
 
 const options = {
   hostname: '127.0.0.1',

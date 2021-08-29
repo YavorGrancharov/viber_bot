@@ -5,7 +5,7 @@ const handlebars = require('express-handlebars');
 const i18n = require('../../i18n.config');
 
 const { EXPRESS_READY } =
-  require('../constants/responseMessage').ResponseMessage;
+  require('../constants/response.message').ResponseMessage;
 
 module.exports = (app) => {
   let hbs = handlebars.create({

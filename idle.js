@@ -1,6 +1,6 @@
 const { request } = require('./src/helpers/helper');
-const { RequestHeaders } = require('./src/constants/requestHeaders');
-const { POST } = require('./src/constants/requestMethod').RequestMethod;
+const { RequestHeaders } = require('./src/constants/request.headers');
+const { POST } = require('./src/constants/request.method').RequestMethod;
 
 module.exports = (url) => {
   setInterval(() => {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { MONGODB_READY, DATABASE_ERROR } =
-  require('../constants/responseMessage').ResponseMessage;
+  require('../constants/response.message').ResponseMessage;
 
 mongoose.Promise = global.Promise;
 

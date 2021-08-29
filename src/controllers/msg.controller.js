@@ -1,36 +1,35 @@
 const fs = require('fs');
 const path = require('path');
 
-const localeService = require('../services/localeService');
+const localeService = require('../services/locale.service');
 
 const TextMessage = require('viber-bot').Message.Text;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
 
-const { ev } = require('./eventController');
-const { RequestHeaders } = require('../constants/requestHeaders');
+const { ev } = require('./event.controller');
+const { RequestHeaders } = require('../constants/request.headers');
 
-const { getAllUsers } = require('./userController');
-const { getCurrentPrice } = require('../api/cryptoApi');
+const { getAllUsers } = require('./user.controller');
+const { getCurrentPrice } = require('../api/crypto.api');
 const { request, setProp } = require('../helpers/helper');
 
-const { POST } = require('../constants/requestMethod').RequestMethod;
-const { BTC, ETH } = require('../constants/requestMessage').RequestMessage;
+const { POST } = require('../constants/request.method').RequestMethod;
+const { BTC, ETH } = require('../constants/request.message').RequestMessage;
 const { BROADCAST_MESSAGE_URL, SEND_MESSAGE_URL } =
-  require('../constants/requestUrl').RequestUrl;
+  require('../constants/request.url').RequestUrl;
 const {
   CURRENT_BTC_PRICE,
   CURRENT_ETH_PRICE,
-  TEXT_MESSAGE_ONLY,
   POSTMAN_KNOCKS_TWICE,
   YOU_HAVE_BEEN_SERVED,
-} = require('../constants/responseMessage').ResponseMessage;
+} = require('../constants/response.message').ResponseMessage;
 
 const postman = (module.exports = {
   sendWelcomeMsg: (response, message) => {
     let msg = '';
     const filePath = path.normalize(
-      path.join(__dirname, '../msgJsonTemplates/welcomeMsg.json')
+      path.join(__dirname, '../msgJsonTemplates/welcome.message.json')
     );
 
     const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
@@ -61,7 +60,7 @@ const postman = (module.exports = {
   sendKeyboardMsg: (response) => {
     let msg = '';
     const filePath = path.normalize(
-      path.join(__dirname, '../msgJsonTemplates/keyboardMsg.json')
+      path.join(__dirname, '../msgJsonTemplates/keyboard.message.json')
     );
 
     const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
@@ -86,7 +85,7 @@ const postman = (module.exports = {
   sendRichMediaMsg: async (response, crypto, price, diff) => {
     let msg = '';
     const filePath = path.normalize(
-      path.join(__dirname, '../msgJsonTemplates/richMediaMsg.json')
+      path.join(__dirname, '../msgJsonTemplates/rich-media.message.json')
     );
 
     const stream = fs.createReadStream(filePath, { encoding: 'utf8' });

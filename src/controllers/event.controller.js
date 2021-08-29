@@ -4,13 +4,13 @@ const ev = new EventEmitter();
 const BtcModel = require('../models/BtcModel');
 const EthModel = require('../models/EthModel');
 
-const { getCurrentPrice, getPriceFromDb } = require('../api/cryptoApi');
+const { getCurrentPrice, getPriceFromDb } = require('../api/crypto.api');
 const { calcPriceChange } = require('../helpers/helper');
 
-const localeService = require('../services/localeService');
+const localeService = require('../services/locale.service');
 
 const { BTC, ETH, EN, BG } =
-  require('../constants/requestMessage').RequestMessage;
+  require('../constants/request.message').RequestMessage;
 
 ev.on('EN', (response, listener) => {
   localeService.setLocale(EN);

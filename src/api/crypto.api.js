@@ -1,6 +1,6 @@
 const { getTicker } = require('../helpers/helper');
 const { BTC, ETH, XBTUSD, ETHUSD } =
-  require('../constants/requestMessage').RequestMessage;
+  require('../constants/request.message').RequestMessage;
 
 async function getPriceFromDb(model) {
   let price;

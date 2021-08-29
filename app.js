@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { MISSING_BOT_ACCOUNT_KEY, APP_RUNNING_ON_PORT, CANNOT_SET_WEBHOOK } =
-  require('./src/constants/responseMessage').ResponseMessage;
+  require('./src/constants/response.message').ResponseMessage;
 
 if (!process.env.VIBER_ACCESS_TOKEN) {
   console.log(MISSING_BOT_ACCOUNT_KEY);
@@ -19,26 +19,26 @@ process.on('unhandledRejection', (reason, promise) => {
 const { getPublicUrl } = require('./publicUrl');
 
 // Initialize bot
-const bot = require('./src/config/bot')();
-require('./src/controllers/botController').onConversationStarted(bot);
-require('./src/controllers/botController').onMessageReceived(bot);
-require('./src/controllers/botController').onTextMessage(bot);
-require('./src/controllers/botController').onUnsubscribe(bot);
-require('./src/controllers/botController').onSubscribe(bot);
-require('./src/controllers/botController').onError(bot);
+const bot = require('./src/config/bot.config')();
+require('./src/controllers/bot.controller').onConversationStarted(bot);
+require('./src/controllers/bot.controller').onMessageReceived(bot);
+require('./src/controllers/bot.controller').onTextMessage(bot);
+require('./src/controllers/bot.controller').onUnsubscribe(bot);
+require('./src/controllers/bot.controller').onSubscribe(bot);
+require('./src/controllers/bot.controller').onError(bot);
 
 // Create server
 const express = require('express');
 const router = express.Router();
 const env = process.env.NODE_ENV || 'development';
-const settings = require('./src/config/settings')[env];
+const settings = require('./src/config/settings.config')[env];
 
 const app = express();
 
-require('./src/config/database')(settings);
-require('./src/config/express')(app);
-require('./src/config/router').get(router);
-require('./src/config/router').post(router);
+require('./src/config/database.config')(settings);
+require('./src/config/express.config')(app);
+require('./src/config/router.config').get(router);
+require('./src/config/router.config').post(router);
 require('./scheduler')();
 
 // require('./idle')(process.env.WEBHOOK_URL);

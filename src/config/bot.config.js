@@ -1,6 +1,6 @@
 const ViberBot = require('viber-bot').Bot;
-const { BOT_AVATAR_URL } = require('../constants/requestUrl').RequestUrl;
-const { BOT_NAME } = require('../constants/responseMessage').ResponseMessage;
+const { BOT_AVATAR_URL } = require('../constants/request.url').RequestUrl;
+const { BOT_NAME } = require('../constants/response.message').ResponseMessage;
 
 module.exports = () => {
   return new ViberBot({

@@ -1,7 +1,7 @@
 const unirest = require('unirest');
 
-const { KRAKEN_URL } = require('../constants/requestUrl').RequestUrl;
-const { GET } = require('../constants/requestMethod').RequestMethod;
+const { KRAKEN_URL } = require('../constants/request.url').RequestUrl;
+const { GET } = require('../constants/request.method').RequestMethod;
 
 module.exports = {
   getTicker: async (pairKey) => {

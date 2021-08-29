@@ -1,5 +1,5 @@
-const bot = require('../config/bot')();
-const localeService = require('../services/localeService');
+const bot = require('./bot.config')();
+const localeService = require('../services/locale.service');
 
 module.exports = {
   get: (router) => {

@@ -1,17 +1,17 @@
 const BotEvents = require('viber-bot').Events;
 
-const localeService = require('../services/localeService');
+const localeService = require('../services/locale.service');
 
 const { WELCOME_TO_FINANCE_BOT } =
-  require('../constants/responseMessage').ResponseMessage;
+  require('../constants/response.message').ResponseMessage;
 
-const { saveUser, deleteUser } = require('./userController');
+const { saveUser, deleteUser } = require('./user.controller');
 const {
   sendTextMsg,
   botResponseMsg,
   sendKeyboardMsg,
   sendWelcomeMsg,
-} = require('./msgController');
+} = require('./msg.controller');
 
 module.exports = {
   onConversationStarted: (bot) => {

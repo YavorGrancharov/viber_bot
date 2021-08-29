@@ -2,7 +2,7 @@ const {
   saveUserToDb,
   getAllUsersFromDb,
   deleteUserFromDb,
-} = require('../api/usersApi');
+} = require('../api/users.api');
 
 module.exports = {
   saveUser: (response) => {

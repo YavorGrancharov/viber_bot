@@ -1,7 +1,7 @@
 const BotEvents = require('viber-bot').Events;
 
-const botController = require('../../src/controllers/botController');
-const bot = require('../../src/config/bot')();
+const botController = require('../../src/controllers/bot.controller');
+const bot = require('../../src/config/bot.config')();
 
 bot.on = jest.fn();
 bot.sendMessage = jest.fn();

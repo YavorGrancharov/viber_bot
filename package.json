@@ -2,11 +2,11 @@
   "name": "chatbot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "jest --watchAll",
-    "test:ci": "NODE_ENV=test jest --watch ./tests/**/*.test.js",
-    "start": "cross-env node index.js",
+    "test": "jest --watchAll --maxWorkers=50%",
+    "test:ci": "jest --runInBand",
+    "start": "cross-env node app.js",
     "scheduler": "node scheduler.js",
     "ngrok": "ngrok http 3000"
   },
