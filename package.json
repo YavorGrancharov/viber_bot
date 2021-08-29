@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
-    "test:ci": "jest --ci --reporters='default' --reporters='./github-actions-reporter'",
+    "test": "jest --watchAll",
+    "test:ci": "NODE_ENV=test jest --watch ./tests/**/*.test.js",
     "start": "cross-env node index.js",
     "scheduler": "node scheduler.js",
     "ngrok": "ngrok http 3000"
