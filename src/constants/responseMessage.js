@@ -1,5 +1,4 @@
 const ResponseMessage = Object.freeze({
-  TEXT_MESSAGE_ONLY: 'Sorry. I can only understand text messages.',
   PLEASE_TYPE_HI: "Please type 'Hi' to see BTC and ETH buttons.",
   APP_RUNNING_ON_PORT: 'Application running on port',
   MISSING_BOT_ACCOUNT_KEY: 'Could not find bot account token key.',
@@ -13,7 +12,7 @@ const ResponseMessage = Object.freeze({
   POSTMAN_KNOCKS_TWICE: 'Postman knocks twice.',
   YOU_HAVE_BEEN_SERVED: "You've been served!",
   WELCOME_TO_FINANCE_BOT:
-    'Welcome to finance bot a place where you can get info about BTC and ETH prices.\nPlease choose you language from buttons below.',
+    'Welcome to finance bot a place where you can get info about BTC and ETH prices.\nPlease choose your language from buttons below.',
 });
 
 module.exports = { ResponseMessage };

@@ -14,13 +14,11 @@ const { BTC, ETH, EN, BG } =
 
 ev.on('EN', (response, listener) => {
   localeService.setLocale(EN);
-  console.log(localeService.getLocale())
   listener.sendKeyboardMsg(response);
 });
 
 ev.on('BG', (response, listener) => {
   localeService.setLocale(BG);
-  console.log(localeService.getLocale())
   listener.sendKeyboardMsg(response);
 });
 
