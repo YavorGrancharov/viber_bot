@@ -1,3 +1,5 @@
+![example workflow](https://github.com/YavorGrancharov/viber_bot/actions/workflows/tests.yml/badge.svg)
+
 # viber-bot
 
 ### Create Viber Public Account
