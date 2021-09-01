@@ -18,12 +18,6 @@ const { POST } = require('../constants/request.method').RequestMethod;
 const { BTC, ETH } = require('../constants/request.message').RequestMessage;
 const { BROADCAST_MESSAGE_URL, SEND_MESSAGE_URL } =
   require('../constants/request.url').RequestUrl;
-const {
-  CURRENT_BTC_PRICE,
-  CURRENT_ETH_PRICE,
-  POSTMAN_KNOCKS_TWICE,
-  YOU_HAVE_BEEN_SERVED,
-} = require('../constants/response.message').ResponseMessage;
 
 const postman = (module.exports = {
   sendWelcomeMsg: (response, message) => {
@@ -66,7 +60,7 @@ const postman = (module.exports = {
     const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
 
     stream.on('open', () => {
-      console.log(POSTMAN_KNOCKS_TWICE);
+      console.log(localeService.translate('Postman_knocks_twice'));
     });
 
     stream.on('data', (piece) => {
@@ -114,7 +108,7 @@ const postman = (module.exports = {
     });
 
     stream.on('close', () => {
-      console.log(YOU_HAVE_BEEN_SERVED);
+      console.log(localeService.translate('You_have_been_served'));
     });
 
     stream.on('error', (error) => {
@@ -137,8 +131,8 @@ const postman = (module.exports = {
       min_api_version: 7,
       type: 'text',
       text:
-        `${CURRENT_BTC_PRICE}$${currentBtcPrice}\n` +
-        `${CURRENT_ETH_PRICE}$${currentEthPrice}`,
+        `${localeService.translate('Current_BTC_price')}$${currentBtcPrice}\n` +
+        `${localeService.translate('Current_ETH_price')}$${currentEthPrice}`,
     };
 
     RequestHeaders['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;

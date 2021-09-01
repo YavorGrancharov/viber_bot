@@ -6,12 +6,10 @@ const {
 
 module.exports = {
   saveUser: (response) => {
-    try {
-      const user = response.userProfile;
-      saveUserToDb(user);
-    } catch (error) {
-      console.log(error);
-    }
+    const user = response;
+    return saveUserToDb(user)
+      .then((user) => user)
+      .catch((error) => console.log(error));
   },
   getAllUsers: () => {
     return getAllUsersFromDb()

@@ -1,21 +1,19 @@
-const User = require('../models/UserModel');
+const User = require('../models/user.model');
 
-async function saveUserToDb(userProfile) {
-  const { id, name, avatar, country, language, apiVersion } = userProfile;
-  try {
-    const user = await User.findOne({ viberId: { $eq: id } }).lean();
-    if (!user) {
-      User.create({
-        viberId: id,
-        name: name,
-        avatar: avatar,
-        country: country,
-        language: language,
-        apiVersion: apiVersion,
-      });
-    }
-  } catch (error) {
-    console.log(error);
+async function saveUserToDb(response) {
+  const { id, name, avatar, country, language, apiVersion } = response.userProfile;
+  const user = await User.findOne({ viberId: { $eq: id } }).lean();
+  if (!user) {
+    return User.create({
+      viberId: id,
+      name: name,
+      avatar: avatar,
+      country: country,
+      language: language,
+      apiVersion: apiVersion,
+    })
+      .then((user) => user)
+      .catch((error) => console.log(error));
   }
 }
 
@@ -33,7 +31,7 @@ async function deleteUserFromDb(id) {
         console.log(err);
         return;
       } else {
-        return (null, doc);
+        return null, doc;
       }
     }
   ).lean();

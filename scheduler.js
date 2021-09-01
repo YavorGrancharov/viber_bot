@@ -3,8 +3,8 @@ const { savePriceToDb } = require('./src/api/crypto.api');
 const { sendSubscribersDailyMsg } =
   require('./src/controllers/consolidator').message;
 
-const BtcModel = require('./src/models/BtcModel');
-const EthModel = require('./src/models/EthModel');
+const BtcModel = require('./src/models/bitcoin.model');
+const EthModel = require('./src/models/ethereum.model');
 
 const cron = require('node-cron');
 

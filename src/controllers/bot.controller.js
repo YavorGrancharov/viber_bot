@@ -41,9 +41,9 @@ module.exports = {
       saveUser(response);
       sendTextMsg(
         response,
-        `${localeService.translate('Thanks_for_subscribing')} ${
-          response.userProfile.name
-        }`
+        localeService.translate('Thanks_for_subscribing', {
+          name: response.userProfile.name,
+        })
       );
     });
   },

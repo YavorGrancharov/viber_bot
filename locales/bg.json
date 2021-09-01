@@ -3,9 +3,13 @@
   "I_can_only_understand_text_messages": "Съжалявам. Мога да разбирам само текстови съобщения.",
   "Current_price_is": "Текущата {{ name }} цена е ${{ value }}",
   "Last_24_hours_change": "Цената се е {{ value }} за последните 24 часа с ",
-  "Thanks_for_subscribing": "Благодаря че се абонирахте",
+  "Thanks_for_subscribing": "Благодаря че се абонирахте {{ name }}",
   "Welcome_to_finance_bot": "Добре дошли във Finance Bot, място, където можете да намерите информация за цените на BTC и ETH.\n Моля изберете вашия език от бутоните по-долу",
   "up": "покачила",
   "down": "понижила",
-  "Answer_to_everything": "Отговорът на всичко е 42"
+  "Answer_to_everything": "Отговорът на всичко е 42",
+  "Current_BTC_price": "Текуща цена на BTC: ",
+  "Current_ETH_price": "Текуща цена на ETH: ",
+  "Postman_knocks_twice": "Пощальонът почука два пъти",
+  "You_have_been_served": "Пратката е доставена!"
 }

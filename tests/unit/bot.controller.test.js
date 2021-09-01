@@ -1,6 +1,4 @@
-const BotEvents = require('viber-bot').Events;
-
-const botController = require('../../src/controllers/bot.controller');
+const botController = require('../../src/controllers/consolidator').bot;
 const bot = require('../../src/config/bot.config')();
 
 bot.on = jest.fn();
@@ -10,21 +8,14 @@ beforeAll(() => {
   botController.onConversationStarted(bot);
 });
 
-describe('botController.onConversationStarted', () => {
-  it('Should have an onConversationStarted function', () => {
+describe('Test: botController.onConversationStarted', () => {
+  it('onConversationStarted should be a function', () => {
     expect(typeof botController.onConversationStarted).toBe('function');
   });
-  it('Should call bot.on event', () => {
-    expect(bot.on).toBeCalled();
-  });
-  it('Should call bot.sendMessage function', () => {
-    bot.on(BotEvents.CONVERSATION_STARTED, () => {
-      expect(bot.sendMessage).toBeCalled();
-    });
-  });
-  it('Should verify response object', () => {
-    bot.on(BotEvents.CONVERSATION_STARTED, (response) => {
-      expect(response).toHaveProperty('userProfile');
-    });
+});
+
+describe('Test: botController.onMessageReceived', () => {
+  it('Should have an onMessageReceived function', () => {
+    expect(typeof botController.onMessageReceived).toBe('function');
   });
 });

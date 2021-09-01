@@ -1,0 +1,15 @@
+{
+  "name": "Finance Bot",
+  "avatar": "https://cdn.pixabay.com/photo/2019/06/23/19/15/bitcoin-4294492_960_720.png",
+  "userProfile": {
+    "id": "P5Obt0/Cy94uEqcxlpOY3g==",
+    "name": "Явор Грънчаров",
+    "avatar": "https://media-direct.cdn.viber.com/download_photo?dlid=xlHDHrfd554LxL5Nx9S_njszO2sCvZnCYoxGcE1wqBLslxz_-2U9tGurPj6OD2LlSmFumnnzilOg1kb4BrQTlVYqaz05RNO6YF-lzhiKiPFXDeZMPJN73vTNhR8oHNjLkW0Kxw&fltp=jpg&imsz=0000",
+    "country": "BG",
+    "language": "bg-BG",
+    "apiVersion": 8
+  },
+  "silent": "undefined",
+  "replyType": "undefined",
+  "chatId": "undefined"
+}

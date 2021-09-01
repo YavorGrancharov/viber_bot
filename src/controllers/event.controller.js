@@ -1,8 +1,8 @@
 const { EventEmitter } = require('events');
 const ev = new EventEmitter();
 
-const BtcModel = require('../models/BtcModel');
-const EthModel = require('../models/EthModel');
+const BtcModel = require('../models/bitcoin.model');
+const EthModel = require('../models/ethereum.model');
 
 const { getCurrentPrice, getPriceFromDb } = require('../api/crypto.api');
 const { calcPriceChange } = require('../helpers/helper');
