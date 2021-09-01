@@ -37,9 +37,7 @@ describe('usersApi.deleteUserFromDb', () => {
   });
   it('Test: should call User.findOneAndDelete', () => {
     req.body = response.userProfile.id;
-    const user = usersApi.deleteUserFromDb(req.body);
-    console.log('Hello');
-    consoleSpy.mockRestore();
+    usersApi.deleteUserFromDb(req.body);
     expect(User.findOneAndDelete).toBeCalledTimes(1);
   });
 });
