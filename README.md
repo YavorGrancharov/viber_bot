@@ -1,6 +1,6 @@
 ![example workflow](https://github.com/YavorGrancharov/viber_bot/actions/workflows/tests.yml/badge.svg)
 ![CodeQL scan](https://github.com/YavorGrancharov/viber_bot/actions/workflows/codeql.yml/badge.svg)
-
+[![CircleCI](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main.svg?style=svg)](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main)
 
 
 # viber-bot
