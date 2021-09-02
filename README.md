@@ -1,7 +1,8 @@
 ![example workflow](https://github.com/YavorGrancharov/viber_bot/actions/workflows/tests.yml/badge.svg)
 ![CodeQL scan](https://github.com/YavorGrancharov/viber_bot/actions/workflows/codeql.yml/badge.svg)
 [![CircleCI](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main.svg?style=svg)](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main)
-
+![Total lines](https://sloc.xyz/github/YavorGrancharov/viber_bot)
+![Website](https://img.shields.io/website?down_color=red&down_message=down&up_color=green&up_message=up&url=https%3A%2F%2Fvbr-bot.herokuapp.com%2F)
 
 # viber-bot
 
@@ -80,3 +81,7 @@ You can see it running on **localhost:3000**
 ```
 npm run test
 ```
+#### Contributors
+<a href="https://github.com/YavorGrancharov/viber_bot/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=YavorGrancharov/viber_bot"/>
+</a>
