@@ -5,7 +5,7 @@ const BtcModel = require('../models/bitcoin.model');
 const EthModel = require('../models/ethereum.model');
 
 const { getCurrentPrice, getPriceFromDb } = require('../api/crypto.api');
-const { calcPriceChange } = require('../helpers/helper');
+const { calcPriceChange } = require('../helpers/common.ops.helper');
 
 const localeService = require('../services/locale.service');
 

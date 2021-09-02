@@ -10,9 +10,10 @@ const RichMediaMessage = require('viber-bot').Message.RichMedia;
 const { ev } = require('./event.controller');
 const { RequestHeaders } = require('../constants/request.headers');
 
-const { getAllUsers } = require('./user.controller');
+const { getAllUsersFromDb } = require('../api/users.api');
 const { getCurrentPrice } = require('../api/crypto.api');
-const { request, setProp } = require('../helpers/helper');
+const { request } = require('../helpers/request.helper');
+const { setProp } = require('../helpers/common.ops.helper');
 
 const { POST } = require('../constants/request.method').RequestMethod;
 const { BTC, ETH } = require('../constants/request.message').RequestMessage;
@@ -117,7 +118,7 @@ const postman = (module.exports = {
   },
   sendSubscribersDailyMsg: async () => {
     let broadcastList = [];
-    const users = await getAllUsers();
+    const users = await getAllUsersFromDb();
     users.forEach((user) => {
       broadcastList.push(user.viberId);
     });

@@ -1,4 +1,4 @@
-const { getTicker } = require('../helpers/helper');
+const { getTicker } = require('../helpers/request.helper');
 const { BTC, ETH, XBTUSD, ETHUSD } =
   require('../constants/request.message').RequestMessage;
 

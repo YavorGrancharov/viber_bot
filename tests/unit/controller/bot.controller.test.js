@@ -1,5 +1,5 @@
-const botController = require('../../src/controllers/consolidator').bot;
-const bot = require('../../src/config/bot.config')();
+const botController = require('../../../src/controllers/consolidator').bot;
+const bot = require('../../../src/config/bot.config')();
 
 bot.on = jest.fn();
 bot.sendMessage = jest.fn();

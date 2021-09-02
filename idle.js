@@ -1,4 +1,4 @@
-const { request } = require('./src/helpers/helper');
+const { request } = require('./src/helpers/request.helper');
 const { RequestHeaders } = require('./src/constants/request.headers');
 const { POST } = require('./src/constants/request.method').RequestMethod;
 

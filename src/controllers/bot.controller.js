@@ -5,7 +5,7 @@ const localeService = require('../services/locale.service');
 const { WELCOME_TO_FINANCE_BOT } =
   require('../constants/response.message').ResponseMessage;
 
-const { saveUser, deleteUser } = require('./user.controller');
+const { saveUserToDb, getAllUsersFromDb, deleteUserFromDb } = require('../api/users.api');
 const {
   sendTextMsg,
   botResponseMsg,
@@ -27,7 +27,7 @@ module.exports = {
   },
   onMessageReceived: (bot) => {
     bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
-      saveUser(response);
+      saveUserToDb(response);
       botResponseMsg(response, message);
     });
   },
@@ -38,7 +38,7 @@ module.exports = {
   },
   onSubscribe: (bot) => {
     bot.on(BotEvents.SUBSCRIBED, (response) => {
-      saveUser(response);
+      saveUserToDb(response);
       sendTextMsg(
         response,
         localeService.translate('Thanks_for_subscribing', {
@@ -49,7 +49,7 @@ module.exports = {
   },
   onUnsubscribe: (bot) => {
     bot.on(BotEvents.UNSUBSCRIBED, (id) => {
-      deleteUser(id);
+      deleteUserFromDb(id);
     });
   },
   onError: (bot) => {

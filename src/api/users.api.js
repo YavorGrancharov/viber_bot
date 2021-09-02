@@ -1,8 +1,9 @@
 const User = require('../models/user.model');
 
 async function saveUserToDb(response) {
-  const { id, name, avatar, country, language, apiVersion } = response.userProfile;
-  const user = await User.findOne({ viberId: { $eq: id } }).lean();
+  const { id, name, avatar, country, language, apiVersion } =
+    response.userProfile;
+  const user = await User.findOne({ viberId: { $eq: id } });
   if (!user) {
     return User.create({
       viberId: id,
@@ -18,11 +19,17 @@ async function saveUserToDb(response) {
 }
 
 async function getAllUsersFromDb() {
-  return await User.find({}).lean();
+  return await User.find({}, (err, doc) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    return doc;
+  });
 }
 
 async function deleteUserFromDb(id) {
-  await User.findOneAndDelete(
+  return await User.findOneAndDelete(
     {
       viberId: { $eq: id },
     },
@@ -30,11 +37,10 @@ async function deleteUserFromDb(id) {
       if (err) {
         console.log(err);
         return;
-      } else {
-        return null, doc;
       }
+      return doc;
     }
-  ).lean();
+  );
 }
 
 module.exports = {

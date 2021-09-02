@@ -6,6 +6,8 @@
   "scripts": {
     "test": "jest --watchAll --maxWorkers=50%",
     "test:ci": "jest --runInBand",
+    "test:clear": "jest --clearCache",
+    "test:config": "jest --showConfig",
     "start": "cross-env node app.js",
     "scheduler": "node scheduler.js",
     "ngrok": "ngrok http 3000"
