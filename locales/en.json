@@ -12,7 +12,9 @@
   "Current_ETH_price": "Current ETH price: ",
   "Postman_knocks_twice": "Postman knocks twice.",
   "You_have_been_served": "You've been served!",
-  "Start_new_conversation": "Start new conversation by opening your viber app, click \"More\" button at the bottom right corner and scan the QR code below",
+  "Start_new_conversation": "or start new conversation by opening your viber app, click \"More\" button at the bottom right corner and scan QR code below",
   "or": "or",
-  "Restart_game": "New game"
+  "Restart_game": "New game",
+  "Open_viber": "Open in Viber",
+  "Tic_tac_toe": "Tic Tac Toe"
 }

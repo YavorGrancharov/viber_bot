@@ -7,12 +7,16 @@
     <img src='images/crypto-bot.jpg' alt='' width='100%' height='auto' />
   </div>
   <div>
-    <p class='lead'>{{conversation}}</p>
-    <img class="mb-4 mt-4" src='images/qr.png' />
-    <p class='lead'>{{option}}</p>
+    <a
+      class='btn btn-light btn-lg mb-4'
+      href='viber://pa?chatURI=stockmarketbot'
+    ><img class='me-2' src='images/viber.svg' width='32' /><span>{{chat}}</span></a>
+    <p class='lead'>{{scan}}</p>
+    <img class='mb-4 mt-4' src='images/qr.png' />
+    <p class='lead'>{{or}}</p>
   </div>
   <section>
-    <h4 class='game--title'>Tic Tac Toe</h4>
+    <h4 class='game--title'>{{game}}</h4>
     <div class='game--container'>
       <div data-cell-index='0' class='cell'></div>
       <div data-cell-index='1' class='cell'></div>
