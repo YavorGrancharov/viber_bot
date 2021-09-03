@@ -36,8 +36,8 @@
 │   |   ├── codeql.yml
 │   |   └── tests.yml
 └── locales
-│   ├── api
-│   |   └── users.js
+│   ├── bg.json
+│   └── en.json
 └── src
 │   └── api
 │   |   ├── crypto.api.js
