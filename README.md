@@ -1,7 +1,6 @@
 ![example workflow](https://github.com/YavorGrancharov/viber_bot/actions/workflows/tests.yml/badge.svg)
 ![CodeQL scan](https://github.com/YavorGrancharov/viber_bot/actions/workflows/codeql.yml/badge.svg)
 [![CircleCI](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main.svg?style=svg)](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main)
-![Total lines](https://sloc.xyz/github/YavorGrancharov/viber_bot)
 [![DeepScan grade](https://deepscan.io/api/teams/9025/projects/18463/branches/453416/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9025&pid=18463&bid=453416)
 
 # viber-bot
@@ -153,6 +152,9 @@ app.listen(settings.port, async () => {
 And run project using commands **npm run ngrok** and **npm run start** on two separate terminals
 
 You can see it running on **localhost:3000**
+
+#### Or you can go to
+[Viber Finance Bot](https://vbr-bot.herokuapp.com/)
 
 #### Run all tests with command
 
