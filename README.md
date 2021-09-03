@@ -2,7 +2,7 @@
 ![CodeQL scan](https://github.com/YavorGrancharov/viber_bot/actions/workflows/codeql.yml/badge.svg)
 [![CircleCI](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main.svg?style=svg)](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main)
 ![Total lines](https://sloc.xyz/github/YavorGrancharov/viber_bot)
-![Website](https://img.shields.io/website?down_color=red&down_message=down&up_color=green&up_message=up&url=https%3A%2F%2Fvbr-bot.herokuapp.com%2F)
+[![DeepScan grade](https://deepscan.io/api/teams/9025/projects/18463/branches/453416/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9025&pid=18463&bid=453416)
 
 # viber-bot
 
