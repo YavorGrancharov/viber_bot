@@ -5,7 +5,7 @@ const localeService = require('../services/locale.service');
 const { WELCOME_TO_FINANCE_BOT } =
   require('../constants/response.message').ResponseMessage;
 
-const { saveUserToDb, getAllUsersFromDb, deleteUserFromDb } = require('../api/users.api');
+const { saveUserToDb, deleteUserFromDb } = require('../api/users.api');
 const {
   sendTextMsg,
   botResponseMsg,

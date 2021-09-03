@@ -11,5 +11,8 @@
   "Current_BTC_price": "Текуща цена на BTC: ",
   "Current_ETH_price": "Текуща цена на ETH: ",
   "Postman_knocks_twice": "Пощальонът почука два пъти",
-  "You_have_been_served": "Пратката е доставена!"
+  "You_have_been_served": "Пратката е доставена!",
+  "Start_new_conversation": "Започнете нов разговор, като отворите приложението Viber, щракнете върху бутона \"Още\" в долния десен ъгъл и сканирате QR кода по-долу",
+  "or": "или",
+  "Restart_game": "Нова игра"
 }

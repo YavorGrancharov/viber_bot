@@ -13,7 +13,7 @@ User.create = jest.fn().mockImplementation(() => Promise.resolve());
 User.find = jest.fn().mockImplementation(() => Promise.resolve());
 
 jest.useFakeTimers();
-jest.setTimeout(100000);
+jest.setTimeout(10000);
 
 let log = jest.spyOn(console, 'log').mockImplementation(() => {});
 let req, res, next;
@@ -28,31 +28,25 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-describe('usersApi.saveUserToDb', () => {
-  it('Test: should have a saveUser function', () => {
+describe('Users api test', () => {
+  it('Should have a saveUser function', () => {
     expect(typeof saveUserToDb).toBe('function');
   });
-  it('Test: should call User.findOne', () => {
+  it('Should call User.findOne', () => {
     req.body = response;
     log(req.body.userProfile);
-    expect(log).toHaveBeenCalledWith(req.body.userProfile);
+    expect(log).toBeCalledWith(req.body.userProfile);
     log.mockReset();
     saveUserToDb(req.body);
     expect(User.findOne).toBeCalledTimes(1);
   });
-  it('Test: should call User.create', () => {
+  it('Should call User.create', () => {
     expect(User.create).toBeCalledTimes(1);
   });
-});
-
-describe('usersApi.getAllUsersFromDb', () => {
-  it('Test: should call User.find', () => {
+  it('Should call User.find', () => {
     getAllUsersFromDb();
     expect(User.find).toBeCalledTimes(1);
   });
-});
-
-describe('usersApi.deleteUserFromDb', () => {
   it('Test: should have a saveUser function', () => {
     expect(typeof deleteUserFromDb).toBe('function');
   });
