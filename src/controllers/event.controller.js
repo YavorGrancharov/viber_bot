@@ -17,16 +17,16 @@ ev.on('EN', (response, listener) => {
   listener.sendKeyboardMsg(response);
 });
 
-ev.on('BG', (response, listener) => {
+ev.on(BG, (response, listener) => {
   localeService.setLocale(BG);
   listener.sendKeyboardMsg(response);
 });
 
-ev.on('BTC', async (response, listener) => {
+ev.on(BTC, async (response, listener) => {
   _bindCryptoData(response, BTC, BtcModel, listener);
 });
 
-ev.on('ETH', async (response, listener) => {
+ev.on(ETH, async (response, listener) => {
   _bindCryptoData(response, ETH, EthModel, listener);
 });
 

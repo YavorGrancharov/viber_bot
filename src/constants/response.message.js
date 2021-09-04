@@ -6,7 +6,7 @@ const ResponseMessage = Object.freeze({
   EXPRESS_READY: 'Express ready!',
   MONGODB_READY: 'MongoDB ready!',
   DATABASE_ERROR: 'Database error: ',
-  BOT_NAME: 'Finance Bot',
+  BOT_NAME: 'Crypto Chatbot',
   WELCOME_TO_FINANCE_BOT:
     'Welcome to finance bot a place where you can get info about BTC and ETH prices.\nPlease choose your language from buttons below.',
 });

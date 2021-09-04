@@ -4,7 +4,7 @@
   "Current_price_is": "Current {{ name }} price is ${{ value }}",
   "Last_24_hours_change": "It is {{ value }} for the last 24h with ",
   "Thanks_for_subscribing": "Thanks for subscribing {{ name }}",
-  "Welcome_to_finance_bot": "Welcome to Finance Bot, a place where you can find info about BTC and ETH prices.\nPlease choose you language from buttons below.",
+  "Welcome_to_finance_bot": "Welcome to Finance Bot, a place where you can find info about Bitcoin and Ethereum prices.\nPlease choose you language from buttons below.",
   "up": "up",
   "down": "down",
   "Answer_to_everything": "The answer to everything is 42",

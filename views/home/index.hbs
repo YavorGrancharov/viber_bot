@@ -3,19 +3,26 @@
     <h1>{{hello}}</h1>
     <p class='lead'>{{joke}}</p>
   </div>
-  <div class='col-md-3 paddingbottom20'>
-    <img src='images/crypto-bot.jpg' alt='' width='100%' height='auto' />
+  <div class='col-md-6 paddingbottom20'>
+    <img
+      class='mb-4 mt-2'
+      src='images/robot2.png'
+      alt=''
+      width='31%'
+      height='auto'
+    />
   </div>
   <div>
     <a
       class='btn btn-light btn-lg mb-4'
       href='viber://pa?chatURI=stockmarketbot'
-    ><img class='me-2' src='images/viber.svg' width='32' /><span>{{chat}}</span></a>
+    ><img class='me-2' src='images/viber.svg' width='32' /><span
+      >{{chat}}</span></a>
     <p class='lead'>{{scan}}</p>
     <img class='mb-4 mt-4' src='images/qr.png' />
-    <p class='lead'>{{or}}</p>
+    {{!-- <p class='lead'>{{or}}</p> --}}
   </div>
-  <section>
+  {{!-- <section>
     <h4 class='game--title'>{{game}}</h4>
     <div class='game--container'>
       <div data-cell-index='0' class='cell'></div>
@@ -30,5 +37,5 @@
     </div>
     <h2 class='game--status'></h2>
     <button class='btn btn-info game--restart mb-3'>{{newgame}}</button>
-  </section>
+  </section> --}}
 </div>
