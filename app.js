@@ -31,6 +31,7 @@ require('./src/controllers/bot.controller').onError(bot);
 const express = require('express');
 const router = express.Router();
 const env = process.env.NODE_ENV || 'development';
+const WEBHOOK_URL = process.env.WEBHOOK_URL || process.env.WEBHOOK_URL_STAGING;
 const settings = require('./src/config/settings.config')[env];
 
 const app = express();
@@ -48,7 +49,7 @@ app.use('/viber/webhook', bot.middleware());
 app.listen(settings.port, async () => {
   try {
     console.log(`${APP_RUNNING_ON_PORT}: ${settings.port}`);
-    bot.setWebhook(`${process.env.WEBHOOK_URL}/viber/webhook`);
+    bot.setWebhook(`${WEBHOOK_URL}/viber/webhook`);
   } catch (error) {
     console.log(CANNOT_SET_WEBHOOK);
     console.error(error);
