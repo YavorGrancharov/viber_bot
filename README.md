@@ -2,7 +2,7 @@
 [![CircleCI](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main.svg?style=svg)](https://circleci.com/gh/YavorGrancharov/viber_bot/tree/main)
 [![DeepScan grade](https://deepscan.io/api/teams/9025/projects/18463/branches/453416/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9025&pid=18463&bid=453416)
 
-# viber-bot
+# Crypto Chatbot
 
 #### Software Requirements
 
