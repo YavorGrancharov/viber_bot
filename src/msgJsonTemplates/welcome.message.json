@@ -12,7 +12,7 @@
         "TextHAlign": "center",
         "TextVAlign": "middle",
         "ActionType": "reply",
-        "ActionBody": "EN",
+        "ActionBody": "en",
         "BgColor": "#5e5ece",
         "Image": ""
       },
@@ -24,7 +24,7 @@
         "TextHAlign": "center",
         "TextVAlign": "middle",
         "ActionType": "reply",
-        "ActionBody": "BG",
+        "ActionBody": "bg",
         "BgColor": "#5e5ece",
         "Image": ""
       }

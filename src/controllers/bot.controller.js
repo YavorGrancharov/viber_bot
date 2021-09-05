@@ -11,7 +11,7 @@ const {
   botResponseMsg,
   sendKeyboardMsg,
   sendWelcomeMsg,
-} = require('./msg.controller');
+} = require('./message.controller');
 
 module.exports = {
   onConversationStarted: (bot) => {

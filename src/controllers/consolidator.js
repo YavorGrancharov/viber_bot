@@ -1,4 +1,4 @@
-const message = require('./msg.controller');
+const message = require('./message.controller');
 const bot = require('./bot.controller');
 
 module.exports = {

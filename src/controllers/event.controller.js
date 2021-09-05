@@ -12,9 +12,13 @@ const localeService = require('../services/locale.service');
 const { BTC, ETH, EN, BG } =
   require('../constants/request.message').RequestMessage;
 
-ev.on('EN', (response, listener) => {
+ev.on(EN, (response, listener) => {
   localeService.setLocale(EN);
   listener.sendKeyboardMsg(response);
+});
+
+ev.on(EN, (response, listener) => {
+  listener.sendTextMsg(response, localeService.translate('Language_changed'));
 });
 
 ev.on(BG, (response, listener) => {
@@ -22,11 +26,15 @@ ev.on(BG, (response, listener) => {
   listener.sendKeyboardMsg(response);
 });
 
-ev.on(BTC, async (response, listener) => {
+ev.on(BG, (response, listener) => {
+  listener.sendTextMsg(response, localeService.translate('Language_changed'));
+});
+
+ev.on(BTC, (response, listener) => {
   _bindCryptoData(response, BTC, BtcModel, listener);
 });
 
-ev.on(ETH, async (response, listener) => {
+ev.on(ETH, (response, listener) => {
   _bindCryptoData(response, ETH, EthModel, listener);
 });
 
