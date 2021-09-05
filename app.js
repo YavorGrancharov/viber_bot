@@ -28,7 +28,7 @@ require('./src/controllers/bot.controller').onSubscribe(bot);
 require('./src/controllers/bot.controller').onError(bot);
 
 // Set webhook configuration
-const WEBHOOK_URL = '';
+let WEBHOOK_URL = '';
 if(process.env.NODE_ENV === 'staging') {
   WEBHOOK_URL = process.env.WEBHOOK_URL_STAGING
 } 
