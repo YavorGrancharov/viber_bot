@@ -3,7 +3,9 @@ const {
   getAllUsersFromDb,
   deleteUserFromDb,
 } = require('../../../src/api/users.api');
+
 const User = require('../../../src/models/user.model');
+
 const httpMocks = require('node-mocks-http');
 const response = require('../../mock/response.json');
 
