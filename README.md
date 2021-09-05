@@ -152,7 +152,7 @@ And run project using commands **npm run ngrok** and **npm run start** on two se
 You can see it running on **localhost:3000**
 
 #### You can visit bot's home page by following link below
-[Viber Finance Bot](https://vbr-bot.herokuapp.com/)
+[Crypto Chatbot](https://vbr-bot.herokuapp.com/)
 
 #### Run all tests with command
 
