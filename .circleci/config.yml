@@ -1,3 +1,8 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@0.0.10
+
 jobs:
   stage:
     executor: heroku/default
@@ -8,11 +13,9 @@ jobs:
           app-name: $HEROKU_APP_NAME
 
   test:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
+    working_directory: ~/viber_bot
+    docker:
+      - image: circleci/node:10.16.3
 
     steps:
       - uses: actions/checkout@v2
@@ -33,9 +36,7 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git:
           app-name: $HEROKU_APP_NAME
-orbs:
-  heroku: circleci/heroku@0.0.10
-version: 2.1
+
 workflows:
   stage_test_approve_deploy:
     jobs:
