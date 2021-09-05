@@ -27,11 +27,19 @@ require('./src/controllers/bot.controller').onUnsubscribe(bot);
 require('./src/controllers/bot.controller').onSubscribe(bot);
 require('./src/controllers/bot.controller').onError(bot);
 
+// Set webhook configuration
+const WEBHOOK_URL = '';
+if(process.env.NODE_ENV === 'staging') {
+  WEBHOOK_URL = process.env.WEBHOOK_URL_STAGING
+} 
+if (process.env.NODE_ENV === 'production') {
+  WEBHOOK_URL = process.env.WEBHOOK_URL
+}
+
 // Create server
 const express = require('express');
 const router = express.Router();
 const env = process.env.NODE_ENV || 'development';
-const WEBHOOK_URL = process.env.WEBHOOK_URL || process.env.WEBHOOK_URL_STAGING;
 const settings = require('./src/config/settings.config')[env];
 
 const app = express();
