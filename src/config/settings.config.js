@@ -8,7 +8,10 @@ module.exports = {
     db: process.env.MONGODB_URI,
     port: process.env.PORT || 3000,
   },
-  staging: {},
+  staging: {
+    port: process.env.PORT,
+    db: process.env.MONGODB_URI
+  },
   production: {
     port: process.env.PORT,
     db: process.env.MONGODB_URI
