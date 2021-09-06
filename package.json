@@ -21,7 +21,7 @@
     "test": "jest --watchAll --maxWorkers=50%",
     "test:ci": "jest --runInBand",
     "start": "cross-env node app.js",
-    "start:dev": "nodemon -L --exec node app.js",
+    "start:dev": "cross-env nodemon -L --exec node app.js",
     "scheduler": "node scheduler.js",
     "ngrok": "ngrok http 3000"
   },
@@ -33,7 +33,13 @@
     "type": "git",
     "url": "https://github.com/YavorGrancharov/viber_bot"
   },
-  "author": "YG",
+  "keywords": [
+    "bot",
+    "viber",
+    "viber chatbot",
+    "viber bot"
+  ],
+  "author": "Yavor Grancharov",
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^5.1.0",
@@ -46,6 +52,7 @@
     "i18n": "^0.13.3",
     "mongodb": "^4.0.1",
     "mongoose": "^5.13.5",
+    "node-absolute-path": "^1.0.6",
     "node-cron": "^3.0.0",
     "node-mocks-http": "^1.10.1",
     "one-liner-joke": "^1.2.2",
@@ -55,7 +62,8 @@
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "jest": "^27.1.0",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
   },
   "type": "commonjs"
 }

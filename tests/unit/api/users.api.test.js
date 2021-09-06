@@ -20,17 +20,16 @@ jest.setTimeout(10000);
 let log = jest.spyOn(console, 'log').mockImplementation(() => {});
 let req, res, next;
 
-beforeEach(() => {
-  req = httpMocks.createRequest();
-  res = httpMocks.createResponse();
-  next = null;
-});
-
-afterEach(() => {
-  jest.restoreAllMocks();
-});
-
 describe('Users api test', () => {
+  beforeEach(() => {
+    req = httpMocks.createRequest();
+    res = httpMocks.createResponse();
+    next = null;
+  });
+  
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   it('Should have a saveUser function', () => {
     expect(typeof saveUserToDb).toBe('function');
   });
@@ -44,6 +43,11 @@ describe('Users api test', () => {
   });
   it('Should call User.create', () => {
     expect(User.create).toBeCalledTimes(1);
+  });
+  it('Should return json body', async () => {
+    User.create.mockReturnValue(response.userProfile);
+    const user = await User.create(response.userProfile);
+    expect(user).toStrictEqual(response.userProfile);
   });
   it('Should call User.find', () => {
     getAllUsersFromDb();

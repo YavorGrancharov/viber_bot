@@ -4,14 +4,6 @@ orbs:
   heroku: circleci/heroku@0.0.10
 
 jobs:
-  stage:
-    executor: heroku/default
-    steps:
-      - checkout
-      - heroku/install
-      - heroku/deploy-via-git:
-          app-name: $HEROKU_APP_NAME
-
   test:
     working_directory: ~/viber_bot
     docker:
@@ -46,10 +38,7 @@ jobs:
 workflows:
   stage_test_approve_deploy:
     jobs:
-      - stage
-      - test:
-          requires:
-            - stage
+      - test
       - hold:
           type: approval
           requires:
