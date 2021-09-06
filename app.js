@@ -27,14 +27,15 @@ require('./src/controllers/bot.controller').onUnsubscribe(bot);
 require('./src/controllers/bot.controller').onSubscribe(bot);
 require('./src/controllers/bot.controller').onError(bot);
 
-// Set webhook configuration
+// Set webhook for different environments
 let WEBHOOK_URL = '';
-if(process.env.NODE_ENV === 'staging') {
-  WEBHOOK_URL = process.env.WEBHOOK_URL_STAGING
-} 
-if (process.env.NODE_ENV === 'production') {
-  WEBHOOK_URL = process.env.WEBHOOK_URL
+if (process.env.NODE_ENV === 'staging') {
+  WEBHOOK_URL = process.env.WEBHOOK_URL_STAGING;
 }
+if (process.env.NODE_ENV === 'production') {
+  WEBHOOK_URL = process.env.WEBHOOK_URL;
+}
+console.log(WEBHOOK_URL);
 
 // Create server
 const express = require('express');
