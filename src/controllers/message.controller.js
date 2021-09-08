@@ -17,40 +17,45 @@ const { setProp } = require('../helpers/common.ops.helper');
 
 const { POST } = require('../constants/request.method').RequestMethod;
 const { BTC, ETH } = require('../constants/request.message').RequestMessage;
-const { BROADCAST_MESSAGE_URL, SEND_MESSAGE_URL } =
+const { BROADCAST_MESSAGE_URL } =
   require('../constants/request.url').RequestUrl;
 
+const STATIC_KEYBOARD = require('../msgJsonTemplates/keyboard.message.json');
+
 const postman = (module.exports = {
-  sendWelcomeMsg: (response, message) => {
-    let msg = '';
-    const filePath = path.normalize(
-      path.join(__dirname, '../msgJsonTemplates/welcome.message.json')
-    );
+  
+  // NOT USED ANYMORE
 
-    const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
+  // sendWelcomeMsg: (response, message) => {
+  //   let msg = '';
+  //   const filePath = path.normalize(
+  //     path.join(__dirname, '../msgJsonTemplates/welcome.message.json')
+  //   );
 
-    stream.on('data', (piece) => {
-      msg += piece;
-    });
+  //   const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
 
-    stream.on('end', () => {
-      msg = JSON.parse(msg);
-      msg.receiver = response.userProfile.id;
-      msg.text = message;
-      const welcomeMsg = msg;
-      RequestHeaders['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;
-      request(POST, SEND_MESSAGE_URL, {
-        data: welcomeMsg,
-        headers: RequestHeaders,
-      });
-    });
+  //   stream.on('data', (piece) => {
+  //     msg += piece;
+  //   });
 
-    stream.on('error', (error) => {
-      console.log(error.stack);
-    });
-  },
+  //   stream.on('end', () => {
+  //     msg = JSON.parse(msg);
+  //     msg.receiver = response.userProfile.id;
+  //     msg.text = message;
+  //     const welcomeMsg = msg;
+  //     RequestHeaders['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;
+  //     request(POST, SEND_MESSAGE_URL, {
+  //       data: welcomeMsg,
+  //       headers: RequestHeaders,
+  //     });
+  //   });
+
+  //   stream.on('error', (error) => {
+  //     console.log(error.stack);
+  //   });
+  // },
   sendTextMsg: (response, message) => {
-    response.send(new TextMessage(message));
+    response.send(new TextMessage(message, STATIC_KEYBOARD));
   },
   sendKeyboardMsg: (response) => {
     let msg = '';
@@ -77,7 +82,7 @@ const postman = (module.exports = {
       console.log(error.stack);
     });
   },
-  sendRichMediaMsg: async (response, crypto, price, diff) => {
+  sendRichMediaMsg: (response, crypto, price, diff) => {
     let msg = '';
     const filePath = path.normalize(
       path.join(__dirname, '../msgJsonTemplates/rich-media.message.json')
@@ -105,7 +110,9 @@ const postman = (module.exports = {
         `<span style=\"color:${color}\">${diff}%</span><br>`;
 
       const richMediaMsg = msg;
-      response.send(new RichMediaMessage(richMediaMsg, null, null));
+      response.send(
+        new RichMediaMessage(richMediaMsg, STATIC_KEYBOARD, null, null)
+      );
     });
 
     stream.on('close', () => {
@@ -142,7 +149,7 @@ const postman = (module.exports = {
       headers: RequestHeaders,
     });
   },
-  botResponseMsg: async (response, message) => {
+  botResponseMsg: (response, message) => {
     if (!(message instanceof TextMessage)) {
       postman.sendTextMsg(
         response,

@@ -10,7 +10,6 @@ const {
   sendTextMsg,
   botResponseMsg,
   sendKeyboardMsg,
-  sendWelcomeMsg,
 } = require('./message.controller');
 
 module.exports = {
@@ -20,7 +19,7 @@ module.exports = {
       (response, isSubscribed, context, onFinish) => {
         bot.sendMessage(
           response.userProfile,
-          sendWelcomeMsg(response, WELCOME_TO_FINANCE_BOT)
+          sendTextMsg(response, WELCOME_TO_FINANCE_BOT)
         );
       }
     );
