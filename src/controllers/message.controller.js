@@ -4,7 +4,6 @@ const path = require('path');
 const localeService = require('../services/locale.service');
 
 const TextMessage = require('viber-bot').Message.Text;
-const KeyboardMessage = require('viber-bot').Message.Keyboard;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
 
 const { ev } = require('./event.controller');
@@ -23,7 +22,6 @@ const { BROADCAST_MESSAGE_URL } =
 const STATIC_KEYBOARD = require('../msgJsonTemplates/keyboard.message.json');
 
 const postman = (module.exports = {
-  
   // NOT USED ANYMORE
 
   // sendWelcomeMsg: (response, message) => {
@@ -55,72 +53,102 @@ const postman = (module.exports = {
   //   });
   // },
   sendTextMsg: (response, message) => {
-    response.send(new TextMessage(message, STATIC_KEYBOARD));
+    return new Promise((resolve, reject) => {
+      postman
+        .sendKeyboard()
+        .then((keyboard) => {
+          resolve(response.send(new TextMessage(message, keyboard)));
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   },
-  sendKeyboardMsg: (response) => {
-    let msg = '';
-    const filePath = path.normalize(
-      path.join(__dirname, '../msgJsonTemplates/keyboard.message.json')
-    );
+  sendKeyboard: () => {
+    return new Promise((resolve, reject) => {
+      let msg = '';
+      const filePath = path.normalize(
+        path.join(__dirname, '../msgJsonTemplates/keyboard.message.json')
+      );
 
-    const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
+      const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
 
-    stream.on('open', () => {
-      console.log(localeService.translate('Postman_knocks_twice'));
-    });
+      stream.on('open', () => {
+        console.log(localeService.translate('Postman_knocks_twice'));
+      });
 
-    stream.on('data', (piece) => {
-      msg += piece;
-    });
+      stream.on('data', (piece) => {
+        msg += piece;
+      });
 
-    stream.on('end', () => {
-      const keyboardMsg = JSON.parse(msg);
-      response.send(new KeyboardMessage(keyboardMsg, null, null, null, 3));
-    });
+      stream.on('end', () => {
+        msg = JSON.parse(msg);
+      });
 
-    stream.on('error', (error) => {
-      console.log(error.stack);
+      stream.on('close', () => {
+        resolve(msg);
+      });
+
+      stream.on('error', (error) => {
+        console.log(error.stack);
+        reject(error);
+      });
     });
   },
   sendRichMediaMsg: (response, crypto, price, diff) => {
-    let msg = '';
-    const filePath = path.normalize(
-      path.join(__dirname, '../msgJsonTemplates/rich-media.message.json')
-    );
+    return new Promise((resolve, reject) => {
+      postman
+        .sendKeyboard()
+        .then((keyboard) => {
+          let msg = '';
+          const filePath = path.normalize(
+            path.join(__dirname, '../msgJsonTemplates/rich-media.message.json')
+          );
 
-    const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
+          const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
 
-    stream.on('data', (piece) => {
-      msg += piece;
-    });
+          stream.on('data', (piece) => {
+            msg += piece;
+          });
 
-    stream.on('end', () => {
-      const color = setProp(diff).color;
-      const direction = localeService.translate(setProp(diff).direction);
-      msg = JSON.parse(msg);
-      msg.Buttons[0].Text =
-        `<font color=\"#FFFFFF\">${localeService.translate('Current_price_is', {
-          name: crypto,
-          value: price,
-        })}</font>` +
-        `<br><br><font color=\"#FFFFFF\">${localeService.translate(
-          'Last_24_hours_change',
-          { value: direction }
-        )}</font>` +
-        `<span style=\"color:${color}\">${diff}%</span><br>`;
+          stream.on('end', async () => {
+            const color = setProp(diff).color;
+            const direction = localeService.translate(setProp(diff).direction);
+            msg = JSON.parse(msg);
+            msg.Buttons[0].Text =
+              `<font color=\"#FFFFFF\">${localeService.translate(
+                'Current_price_is',
+                {
+                  name: crypto,
+                  value: price,
+                }
+              )}</font>` +
+              `<br><br><font color=\"#FFFFFF\">${localeService.translate(
+                'Last_24_hours_change',
+                { value: direction }
+              )}</font>` +
+              `<span style=\"color:${color}\">${diff}%</span><br>`;
 
-      const richMediaMsg = msg;
-      response.send(
-        new RichMediaMessage(richMediaMsg, STATIC_KEYBOARD, null, null)
-      );
-    });
+            const richMediaMsg = msg;
+            resolve(
+              response.send(
+                new RichMediaMessage(richMediaMsg, keyboard, null, null)
+              )
+            );
+          });
 
-    stream.on('close', () => {
-      console.log(localeService.translate('You_have_been_served'));
-    });
+          stream.on('close', () => {
+            console.log(localeService.translate('You_have_been_served'));
+          });
 
-    stream.on('error', (error) => {
-      console.log(error.stack);
+          stream.on('error', (error) => {
+            console.log(error.stack);
+            reject(error);
+          });
+        })
+        .catch((err) => {
+          reject(err);
+        });
     });
   },
   sendSubscribersDailyMsg: async () => {

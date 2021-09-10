@@ -3,25 +3,29 @@ const { BTC, ETH, XBTUSD, ETHUSD } =
   require('../constants/request.message').RequestMessage;
 
 async function getPriceFromDb(model) {
-  let price;
-  price = await model.find({}).limit(1).sort({ $natural: -1 });
-  price = price[0].price;
-  return price;
+  return new Promise(async (resolve, reject) => {
+    let price;
+    price = await model.find({}).limit(1).sort({ $natural: -1 });
+    price = price[0].price;
+    resolve(price);
+  });
 }
 
 async function getCurrentPrice(crypto) {
-  let currentPrice;
-  switch (crypto) {
-    case BTC:
-      currentPrice = await getTicker(XBTUSD);
-      currentPrice = Number(currentPrice.XXBTZUSD.a[0]);
-      break;
-    case ETH:
-      currentPrice = await getTicker(ETHUSD);
-      currentPrice = Number(currentPrice.XETHZUSD.a[0]);
-      break;
-  }
-  return currentPrice;
+  return new Promise(async (resolve, reject) => {
+    let currentPrice;
+    switch (crypto) {
+      case BTC:
+        currentPrice = await getTicker(XBTUSD);
+        currentPrice = Number(currentPrice.XXBTZUSD.a[0]);
+        break;
+      case ETH:
+        currentPrice = await getTicker(ETHUSD);
+        currentPrice = Number(currentPrice.XETHZUSD.a[0]);
+        break;
+    }
+    resolve(currentPrice);
+  });
 }
 
 async function savePriceToDb(model, crypto) {

@@ -9,7 +9,6 @@ const { saveUserToDb, deleteUserFromDb } = require('../api/users.api');
 const {
   sendTextMsg,
   botResponseMsg,
-  sendKeyboardMsg,
 } = require('./message.controller');
 
 module.exports = {
@@ -58,7 +57,7 @@ module.exports = {
   },
   onTextMessage: (bot) => {
     bot.onTextMessage(/^(?!EN|BG|BTC$|ETH$).*$/i, (message, response) => {
-      bot.sendMessage(response.userProfile, sendKeyboardMsg(response));
+      bot.sendMessage(response.userProfile, sendTextMsg(response, 'Try again'));
     });
   },
 };
