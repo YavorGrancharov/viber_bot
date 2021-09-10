@@ -36,7 +36,7 @@ jobs:
           app-name: $HEROKU_APP_NAME
 
 workflows:
-  stage_test_approve_deploy:
+  test_approve_deploy:
     jobs:
       - test
       - hold:
