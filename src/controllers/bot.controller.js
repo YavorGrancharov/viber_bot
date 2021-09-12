@@ -6,10 +6,7 @@ const { WELCOME_TO_FINANCE_BOT } =
   require('../constants/response.message').ResponseMessage;
 
 const { saveUserToDb, deleteUserFromDb } = require('../api/users.api');
-const {
-  sendTextMsg,
-  botResponseMsg,
-} = require('./message.controller');
+const { sendTextMsg, botResponseMsg } = require('./message.controller');
 
 module.exports = {
   onConversationStarted: (bot) => {
@@ -57,7 +54,13 @@ module.exports = {
   },
   onTextMessage: (bot) => {
     bot.onTextMessage(/^(?!EN|BG|BTC$|ETH$).*$/i, (message, response) => {
-      bot.sendMessage(response.userProfile, sendTextMsg(response, 'Try again'));
+      bot.sendMessage(
+        response.userProfile,
+        sendTextMsg(
+          response,
+          localeService.translate('Use_one_of_the_buttons_below')
+        )
+      );
     });
   },
 };

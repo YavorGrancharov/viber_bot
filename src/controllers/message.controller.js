@@ -53,16 +53,14 @@ const postman = (module.exports = {
   //   });
   // },
   sendTextMsg: (response, message) => {
-    return new Promise((resolve, reject) => {
-      postman
-        .sendKeyboard()
-        .then((keyboard) => {
-          resolve(response.send(new TextMessage(message, keyboard)));
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
+    postman
+      .sendKeyboard()
+      .then((keyboard) => {
+        response.send(new TextMessage(message, keyboard));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   sendKeyboard: () => {
     return new Promise((resolve, reject) => {
@@ -96,60 +94,55 @@ const postman = (module.exports = {
     });
   },
   sendRichMediaMsg: (response, crypto, price, diff) => {
-    return new Promise((resolve, reject) => {
-      postman
-        .sendKeyboard()
-        .then((keyboard) => {
-          let msg = '';
-          const filePath = path.normalize(
-            path.join(__dirname, '../msgJsonTemplates/rich-media.message.json')
-          );
+    postman
+      .sendKeyboard()
+      .then((keyboard) => {
+        let msg = '';
+        const filePath = path.normalize(
+          path.join(__dirname, '../msgJsonTemplates/rich-media.message.json')
+        );
 
-          const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
+        const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
 
-          stream.on('data', (piece) => {
-            msg += piece;
-          });
-
-          stream.on('end', async () => {
-            const color = setProp(diff).color;
-            const direction = localeService.translate(setProp(diff).direction);
-            msg = JSON.parse(msg);
-            msg.Buttons[0].Text =
-              `<font color=\"#FFFFFF\">${localeService.translate(
-                'Current_price_is',
-                {
-                  name: crypto,
-                  value: price,
-                }
-              )}</font>` +
-              `<br><br><font color=\"#FFFFFF\">${localeService.translate(
-                'Last_24_hours_change',
-                { value: direction }
-              )}</font>` +
-              `<span style=\"color:${color}\">${diff}%</span><br>`;
-
-            const richMediaMsg = msg;
-            resolve(
-              response.send(
-                new RichMediaMessage(richMediaMsg, keyboard, null, null)
-              )
-            );
-          });
-
-          stream.on('close', () => {
-            console.log(localeService.translate('You_have_been_served'));
-          });
-
-          stream.on('error', (error) => {
-            console.log(error.stack);
-            reject(error);
-          });
-        })
-        .catch((err) => {
-          reject(err);
+        stream.on('data', (piece) => {
+          msg += piece;
         });
-    });
+
+        stream.on('end', async () => {
+          const color = setProp(diff).color;
+          const direction = localeService.translate(setProp(diff).direction);
+          msg = JSON.parse(msg);
+          msg.Buttons[0].Text =
+            `<font color=\"#FFFFFF\">${localeService.translate(
+              'Current_price_is',
+              {
+                name: crypto,
+                value: price,
+              }
+            )}</font>` +
+            `<br><br><font color=\"#FFFFFF\">${localeService.translate(
+              'Last_24_hours_change',
+              { value: direction }
+            )}</font>` +
+            `<span style=\"color:${color}\">${diff}%</span><br>`;
+
+          const richMediaMsg = msg;
+          response.send(
+            new RichMediaMessage(richMediaMsg, keyboard, null, null)
+          );
+        });
+
+        stream.on('close', () => {
+          console.log(localeService.translate('You_have_been_served'));
+        });
+
+        stream.on('error', (error) => {
+          console.log(error.stack);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   sendSubscribersDailyMsg: async () => {
     let broadcastList = [];

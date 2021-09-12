@@ -31,16 +31,12 @@ ev.on(ETH, (response, listener) => {
 });
 
 async function _bindCryptoData(response, crypto, model, listener) {
-  return new Promise(async (resolve, reject) => {
-    let dbPrice = 0,
-      change = 0;
-    const cryptoCurrentPrice = await getCurrentPrice(crypto);
-    dbPrice = await getPriceFromDb(model);
-    change = calcPriceChange(cryptoCurrentPrice, dbPrice);
-    resolve(
-      listener.sendRichMediaMsg(response, crypto, cryptoCurrentPrice, change)
-    );
-  });
+  let dbPrice = 0,
+    change = 0;
+  const cryptoCurrentPrice = await getCurrentPrice(crypto);
+  dbPrice = await getPriceFromDb(model);
+  change = calcPriceChange(cryptoCurrentPrice, dbPrice);
+  listener.sendRichMediaMsg(response, crypto, cryptoCurrentPrice, change);
 }
 
 module.exports = { ev };
