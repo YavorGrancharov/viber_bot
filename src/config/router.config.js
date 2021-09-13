@@ -11,8 +11,10 @@ module.exports = {
           name: bot.name,
         }),
         newgame: localeService.translate('Restart_game'),
-        chat: localeService.translate('Open_viber'),
+        open: localeService.translate('Open_viber'),
+        send: localeService.translate('Send_invite'),
         scan: localeService.translate('Start_new_conversation'),
+        name: 'Yavor',
         or: localeService.translate('or'),
         game: localeService.translate('Tic_tac_toe'),
         joke: randomJoke.getRandomJoke({

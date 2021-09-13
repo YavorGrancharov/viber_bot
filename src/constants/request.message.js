@@ -5,6 +5,7 @@ const RequestMessage = Object.freeze({
   ETHUSD: 'ETHUSD',
   EN: 'en',
   BG: 'bg',
+  INVITE: 'invite',
 });
 
 module.exports = { RequestMessage };

@@ -9,6 +9,7 @@ const ResponseMessage = Object.freeze({
   BOT_NAME: 'Crypto Chatbot',
   WELCOME_TO_FINANCE_BOT:
     'Welcome to finance bot a place where you can get info about BTC and ETH prices.\nPlease choose your language from buttons below.',
+  YOU_WERE_INVITED_TO_CRYPTO_CHATBOT: 'You were invited to Crypto Chatbot by',
 });
 
 module.exports = { ResponseMessage };

@@ -15,7 +15,10 @@ const { request } = require('../helpers/request.helper');
 const { setProp } = require('../helpers/common.ops.helper');
 
 const { POST } = require('../constants/request.method').RequestMethod;
-const { BTC, ETH } = require('../constants/request.message').RequestMessage;
+const { YOU_WERE_INVITED_TO_CRYPTO_CHATBOT } =
+  require('../constants/response.message').ResponseMessage;
+const { BTC, ETH, INVITE } =
+  require('../constants/request.message').RequestMessage;
 const { BROADCAST_MESSAGE_URL } =
   require('../constants/request.url').RequestUrl;
 
@@ -82,7 +85,7 @@ const postman = (module.exports = {
         let forwardUrl =
           `viber://forward?text=` +
           encodeURIComponent(
-            `You were invited to Crypto Chatbot by ${response.userProfile.name} viber://pa?chatURI=${process.env.CHAT_URI}&context=invite`
+            `${YOU_WERE_INVITED_TO_CRYPTO_CHATBOT} ${response.userProfile.name} viber://pa?chatURI=${process.env.CHAT_URI}&context=${INVITE}`
           );
         msg.Buttons.push({
           Columns: 6,
