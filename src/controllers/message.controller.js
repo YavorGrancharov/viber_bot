@@ -19,8 +19,6 @@ const { BTC, ETH } = require('../constants/request.message').RequestMessage;
 const { BROADCAST_MESSAGE_URL } =
   require('../constants/request.url').RequestUrl;
 
-const STATIC_KEYBOARD = require('../msgJsonTemplates/keyboard.message.json');
-
 const postman = (module.exports = {
   // NOT USED ANYMORE
 
@@ -54,7 +52,7 @@ const postman = (module.exports = {
   // },
   sendTextMsg: (response, message) => {
     postman
-      .sendKeyboard()
+      .sendKeyboard(response)
       .then((keyboard) => {
         response.send(new TextMessage(message, keyboard));
       })
@@ -62,7 +60,7 @@ const postman = (module.exports = {
         console.log(err);
       });
   },
-  sendKeyboard: () => {
+  sendKeyboard: (response) => {
     return new Promise((resolve, reject) => {
       let msg = '';
       const filePath = path.normalize(
@@ -81,6 +79,29 @@ const postman = (module.exports = {
 
       stream.on('end', () => {
         msg = JSON.parse(msg);
+        let forwardUrl =
+          `viber://forward?text=` +
+          encodeURIComponent(
+            `You were invited to Crypto Chatbot by ${response.userProfile.name} viber://pa?chatURI=${process.env.CHAT_URI}&context=invite`
+          );
+        msg.Buttons.push({
+          Columns: 6,
+          Rows: 1,
+          Text: '<font color="#ffffff">SEND INVITE</font>',
+          TextSize: 'medium',
+          TextHAlign: 'center',
+          TextVAlign: 'middle',
+          ActionType: 'open-url',
+          ActionBody: forwardUrl,
+          BgColor: '#5e5ece',
+          OpenURLType: 'internal',
+          Silent: true,
+          InternalBrowser: {
+            Mode: 'fullscreen',
+            FooterType: 'hidden',
+          },
+          Image: '',
+        });
       });
 
       stream.on('close', () => {
@@ -95,7 +116,7 @@ const postman = (module.exports = {
   },
   sendRichMediaMsg: (response, crypto, price, diff) => {
     postman
-      .sendKeyboard()
+      .sendKeyboard(response)
       .then((keyboard) => {
         let msg = '';
         const filePath = path.normalize(

@@ -9,6 +9,7 @@
       "TextHAlign": "center",
       "TextVAlign": "middle",
       "ActionType": "reply",
+      "Silent": true,
       "ActionBody": "BTC",
       "BgColor": "#5e5ece",
       "Image": ""
@@ -21,6 +22,7 @@
       "TextHAlign": "center",
       "TextVAlign": "middle",
       "ActionType": "reply",
+      "Silent": true,
       "ActionBody": "ETH",
       "BgColor": "#5e5ece",
       "Image": ""
@@ -33,6 +35,7 @@
       "TextHAlign": "center",
       "TextVAlign": "middle",
       "ActionType": "reply",
+      "Silent": true,
       "ActionBody": "en",
       "BgColor": "#5e5ece",
       "Image": ""
@@ -45,6 +48,7 @@
       "TextHAlign": "center",
       "TextVAlign": "middle",
       "ActionType": "reply",
+      "Silent": true,
       "ActionBody": "bg",
       "BgColor": "#5e5ece",
       "Image": ""

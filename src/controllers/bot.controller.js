@@ -13,6 +13,7 @@ module.exports = {
     bot.on(
       BotEvents.CONVERSATION_STARTED,
       (response, isSubscribed, context, onFinish) => {
+        console.log(context);
         bot.sendMessage(
           response.userProfile,
           sendTextMsg(response, WELCOME_TO_FINANCE_BOT)
