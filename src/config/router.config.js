@@ -14,7 +14,6 @@ module.exports = {
         open: localeService.translate('Open_viber'),
         send: localeService.translate('Send_invite'),
         scan: localeService.translate('Start_new_conversation'),
-        name: 'Yavor',
         or: localeService.translate('or'),
         game: localeService.translate('Tic_tac_toe'),
         joke: randomJoke.getRandomJoke({
