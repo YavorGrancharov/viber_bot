@@ -37,7 +37,7 @@ module.exports = {
       saveUserToDb(response);
       sendTextMsg(
         response,
-        localeService.translate('Thanks_for_subscribing', {
+        localeService.translate(process.env.LOCALE, 'Thanks_for_subscribing', {
           name: response.userProfile.name,
         })
       );
@@ -59,7 +59,7 @@ module.exports = {
         response.userProfile,
         sendTextMsg(
           response,
-          localeService.translate('Use_one_of_the_buttons_below')
+          localeService.translate(process.env.LOCALE, 'Use_one_of_the_buttons_below')
         )
       );
     });

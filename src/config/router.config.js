@@ -6,16 +6,18 @@ module.exports = {
   get: (router) => {
     router.get('/', function (req, res) {
       res.render('home/index', {
-        locale: localeService.getLocale(),
-        hello: localeService.translate('Hello', {
+        locale: process.env.LOCALE,
+        hello: localeService.translate(process.env.LOCALE, 'Hello', {
           name: bot.name,
         }),
-        newgame: localeService.translate('Restart_game'),
-        open: localeService.translate('Open_viber'),
-        send: localeService.translate('Send_invite'),
-        scan: localeService.translate('Start_new_conversation'),
-        or: localeService.translate('or'),
-        game: localeService.translate('Tic_tac_toe'),
+        newgame: localeService.translate(process.env.LOCALE, 'Restart_game'),
+        chat: localeService.translate(process.env.LOCALE, 'Open_viber'),
+        scan: localeService.translate(
+          process.env.LOCALE,
+          'Start_new_conversation'
+        ),
+        or: localeService.translate(process.env.LOCALE, 'or'),
+        game: localeService.translate(process.env.LOCALE, 'Tic_tac_toe'),
         joke: randomJoke.getRandomJoke({
           exclude_tags: ['dirty', 'racist', 'marriage'],
         }).body,
@@ -24,7 +26,11 @@ module.exports = {
   },
   post: (router) => {
     router.post('/', function (req, res) {
-      res.status(200).send(localeService.translate('Answer_to_everything'));
+      res
+        .status(200)
+        .send(
+          localeService.translate(process.env.LOCALE, 'Answer_to_everything')
+        );
     });
   },
 };

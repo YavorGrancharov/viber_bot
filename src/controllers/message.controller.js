@@ -73,7 +73,9 @@ const postman = (module.exports = {
       const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
 
       stream.on('open', () => {
-        console.log(localeService.translate('Postman_knocks_twice'));
+        console.log(
+          localeService.translate(process.env.LOCALE, 'Postman_knocks_twice')
+        );
       });
 
       stream.on('data', (piece) => {
@@ -134,10 +136,14 @@ const postman = (module.exports = {
 
         stream.on('end', async () => {
           const color = setProp(diff).color;
-          const direction = localeService.translate(setProp(diff).direction);
+          const direction = localeService.translate(
+            process.env.LOCALE,
+            setProp(diff).direction
+          );
           msg = JSON.parse(msg);
           msg.Buttons[0].Text =
             `<font color=\"#FFFFFF\">${localeService.translate(
+              process.env.LOCALE,
               'Current_price_is',
               {
                 name: crypto,
@@ -145,6 +151,7 @@ const postman = (module.exports = {
               }
             )}</font>` +
             `<br><br><font color=\"#FFFFFF\">${localeService.translate(
+              process.env.LOCALE,
               'Last_24_hours_change',
               { value: direction }
             )}</font>` +
@@ -157,7 +164,9 @@ const postman = (module.exports = {
         });
 
         stream.on('close', () => {
-          console.log(localeService.translate('You_have_been_served'));
+          console.log(
+            localeService.translate(process.env.LOCALE, 'You_have_been_served')
+          );
         });
 
         stream.on('error', (error) => {
@@ -184,8 +193,14 @@ const postman = (module.exports = {
       min_api_version: 7,
       type: 'text',
       text:
-        `${localeService.translate('Current_BTC_price')}$${currentBtcPrice}\n` +
-        `${localeService.translate('Current_ETH_price')}$${currentEthPrice}`,
+        `${localeService.translate(
+          process.env.LOCALE,
+          'Current_BTC_price'
+        )}$${currentBtcPrice}\n` +
+        `${localeService.translate(
+          process.env.LOCALE,
+          'Current_ETH_price'
+        )}$${currentEthPrice}`,
     };
 
     RequestHeaders['X-Viber-Auth-Token'] = process.env.VIBER_ACCESS_TOKEN;
@@ -198,7 +213,10 @@ const postman = (module.exports = {
     if (!(message instanceof TextMessage)) {
       postman.sendTextMsg(
         response,
-        localeService.translate('I_can_only_understand_text_messages')
+        localeService.translate(
+          process.env.LOCALE,
+          'I_can_only_understand_text_messages'
+        )
       );
     }
 

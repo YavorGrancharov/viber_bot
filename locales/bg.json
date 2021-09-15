@@ -1,9 +1,9 @@
 {
-  "Hello": "Здравейте, аз съм {{ name }}!",
+  "Hello": "Здравейте, аз съм %name%!",
   "I_can_only_understand_text_messages": "Съжалявам. Мога да разбирам само текстови съобщения.",
-  "Current_price_is": "Текущата {{ name }} цена е ${{ value }}",
-  "Last_24_hours_change": "Цената се е {{ value }} за последните 24 часа с ",
-  "Thanks_for_subscribing": "Благодаря че се абонирахте {{ name }}",
+  "Current_price_is": "Текущата %name% цена е $%value%",
+  "Last_24_hours_change": "Цената се е %value% за последните 24 часа с ",
+  "Thanks_for_subscribing": "Благодаря че се абонирахте %name%",
   "Welcome_to_finance_bot": "Добре дошли във Finance Bot, място, където можете да намерите информация за цените на Bitcoin и Ethereum.\n Моля изберете вашия език от бутоните по-долу",
   "up": "покачила",
   "down": "понижила",

@@ -13,20 +13,28 @@ const { BTC, ETH, EN, BG } =
   require('../constants/request.message').RequestMessage;
 
 ev.on(EN, (response, listener) => {
-  localeService.setLocale(EN);
-  listener.sendTextMsg(response, localeService.translate('Language_changed'));
+  localeService.setLocale(EN, response);
+  listener.sendTextMsg(
+    response,
+    localeService.translate(EN, 'Language_changed')
+  );
 });
 
 ev.on(BG, (response, listener) => {
-  localeService.setLocale(BG);
-  listener.sendTextMsg(response, localeService.translate('Language_changed'));
+  localeService.setLocale(BG, response);
+  listener.sendTextMsg(
+    response,
+    localeService.translate(BG, 'Language_changed')
+  );
 });
 
 ev.on(BTC, (response, listener) => {
+  console.log('BTC called')
   _bindCryptoData(response, BTC, BtcModel, listener);
 });
 
 ev.on(ETH, (response, listener) => {
+  console.log('ETH called')
   _bindCryptoData(response, ETH, EthModel, listener);
 });
 

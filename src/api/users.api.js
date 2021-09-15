@@ -55,9 +55,22 @@ async function deleteUserFromDb(id) {
     );
   });
 }
+async function getUserByViberId(id) {
+  return new Promise(async (resolve, reject) => {
+    return await User.findOne({ viberId: id }, (err, doc) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+        return;
+      }
+      resolve(doc);
+    });
+  });
+}
 
 module.exports = {
   saveUserToDb,
   getAllUsersFromDb,
   deleteUserFromDb,
+  getUserByViberId
 };
