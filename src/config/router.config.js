@@ -11,7 +11,8 @@ module.exports = {
           name: bot.name,
         }),
         newgame: localeService.translate(process.env.LOCALE, 'Restart_game'),
-        chat: localeService.translate(process.env.LOCALE, 'Open_viber'),
+        open: localeService.translate(process.env.LOCALE, 'Open_viber'),
+        send: localeService.translate(process.env.LOCALE, 'Send_invite'),
         scan: localeService.translate(
           process.env.LOCALE,
           'Start_new_conversation'

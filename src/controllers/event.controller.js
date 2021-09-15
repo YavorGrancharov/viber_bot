@@ -29,12 +29,10 @@ ev.on(BG, (response, listener) => {
 });
 
 ev.on(BTC, (response, listener) => {
-  console.log('BTC called')
   _bindCryptoData(response, BTC, BtcModel, listener);
 });
 
 ev.on(ETH, (response, listener) => {
-  console.log('ETH called')
   _bindCryptoData(response, ETH, EthModel, listener);
 });
 

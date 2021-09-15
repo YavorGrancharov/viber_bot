@@ -43,15 +43,18 @@ module.exports = {
       const regex = /\%(.*?)\%/g;
       let placeholders = locales[locale][key].match(regex);
       if (placeholders !== null) {
+        translated = locales[locale][key];
         placeholders.forEach((placeholder, index) => {
           let replace = placeholder.substring(1, placeholder.length - 1);
-          translated = locales[locale][key].replace(
+          translated = translated.replace(
             placeholder,
             replacement[replace]
           );
         });
+      } else {
+        translated = locales[locale][key]
       }
-      console.log(translated)
+
       return translated;
     }
   },
