@@ -54,12 +54,8 @@ app.use('/', router);
 app.use('/viber/webhook', bot.middleware());
 app.listen(settings.port, async () => {
   try {
-    const publicUrl = await getPublicUrl();
-    console.log(`Application running on port: ${settings.port}`);
-    console.log('publicUrl => ', publicUrl);
-    bot.setWebhook(`${publicUrl}/viber/webhook`);
-    // console.log(`${APP_RUNNING_ON_PORT}: ${settings.port}`);
-    // bot.setWebhook(`${WEBHOOK_URL}/viber/webhook`);
+    console.log(`${APP_RUNNING_ON_PORT}: ${settings.port}`);
+    bot.setWebhook(`${WEBHOOK_URL}/viber/webhook`);
   } catch (error) {
     console.log(CANNOT_SET_WEBHOOK);
     console.error(error);
